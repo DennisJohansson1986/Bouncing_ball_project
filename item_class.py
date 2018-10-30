@@ -1,5 +1,9 @@
-class Item:
-    pass
+from tkinter import *
 
-if __name__ == '__main__':
-    main()
+class Item:
+    def __init__(self, color, pos):
+        self.color = color
+        self.pos = pos
+
+
+    
