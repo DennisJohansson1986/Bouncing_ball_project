@@ -1,2 +1,0 @@
-class Obstacle(Item):
-    pass
