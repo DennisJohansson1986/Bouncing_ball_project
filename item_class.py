@@ -4,8 +4,16 @@ import time
 
 class Item:
     def __init__(self, pos, color):
-        self.pos = pos.coords
-        self.color = color
+        tk = Tk()
+        tk.title("Bouncing Ball Game")
+        tk.resizable(0, 0)
+        tk.wm_attributes("-topmost", 1)
+        canvas = Canvas(tk, width=800, height=400, bd=0, highlightthickness=0)
+        canvas.pack()
+        tk.update()
+
+        paddle = Paddle(canvas, 'blue')
+        ball = Ball(canvas, paddle, 'green')
 
 # class Paddle:
 #     def __init__(self, canvas, color):
@@ -52,6 +60,6 @@ canvas = tk.Canvas(root, width=500, height=400, background="yellow")
 canvas.pack()
 root.mainloop()
 time.sleep(0.01)
-    
+
 # if __name__=='__main__':
 #     main()
