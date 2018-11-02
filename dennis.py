@@ -88,43 +88,14 @@ class Paddle:
         self.y = 0
         self.x = 0
 
-    #
-    # def draw(self):
-    #     self.canvas.move(self.id, self.x, self.y)
-    #     if self.canvas.coords(self.id)[0] <= 0:
-    #         self.x = 0
-    #     if self.canvas.coords(self.id)[2] >= self.canvas_width:
-    #         self.x = 0
-    #     if self.canvas.coords(self.id)[1] <= 0:
-    #         self.y = 0
-    #     if self.canvas.coords(self.id)[3] >= 0:
-    #         self.y = 0
-    #
-    #
-    # def move_left(self, evt):
-    #     if self.canvas.coords(self.id)[0] >= 0:
-    #         self.x = -3
-    #
-    # def move_right(self, evt):
-    #     if self.canvas.coords(self.id)[2] < self.canvas_width:
-    #         self.x = 3
-    #
-    # def move_up(self, evt):
-    #     if self.canvas.coords(self.id)[1] >= 0:
-    #         self.y = -3
-    #
-    # def move_down(self, evt):
-    #     if self.canvas.coords(self.id)[3] >= canvas.height:
-    #         self.y = -3
 
 class Obstacle:
     def __init__(self, canvas, color):
         self.canvas = canvas
         self.color = color
-       # self.item = item
 
- #   def get_position(self):
-    #    return self.canvas.coords(self.item)
+    def get_position(self):
+        return self.canvas.coords(self)
 
   #  def delete(self):
    #     self.canvas.delete(self.item)
