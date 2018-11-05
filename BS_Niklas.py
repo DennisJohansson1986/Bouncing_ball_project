@@ -57,21 +57,31 @@ class Paddle:
     def turn_right(self, evt):
             self.x = 3
 
-tk = Tk()
-tk.title("Bouncing Ball Game")
-tk.resizable(0, 0)
-tk.wm_attributes("-topmost", 1)
-canvas = Canvas(tk, width=800, height=400, bd=0, highlightthickness=0)
-canvas.pack()
-tk.update()
+class Game(Canvas):
+    def __init__(self):
+        tk = Tk()
+        tk.title("Bouncing Ball Game")
+        tk.resizable(0, 0)
+        tk.wm_attributes("-topmost", 1)
+        canvas = Canvas(tk, width=800, height=400, bd=0, highlightthickness=0)
+        canvas.pack()
+        tk.update()
 
-paddle = Paddle(canvas, 'blue')
-ball = Ball(canvas, paddle, 'green')
+        paddle = Paddle(canvas, 'blue')
+        ball = Ball(canvas, paddle, 'green')
 
-while 1:
-    if ball.hit_bottom == False:
-        ball.draw()
-        paddle.draw()
-    tk.update_idletasks()
-    tk.update()
-    time.sleep(0.01)
+        while 1:
+            if ball.hit_bottom == False:
+                ball.draw()
+                paddle.draw()
+            tk.update_idletasks()
+            tk.update()
+            time.sleep(0.01)
+
+
+def main():
+    Game()
+
+if __name__ == '__main__':
+    main()
+
