@@ -75,8 +75,6 @@ class Ball:
             if pos[2] >= l[0] and pos[0] <= l[2]:
                 if pos[3] >= l[1] and pos[3] <= l[3]:
                     return True
-<<<<<<< HEAD
-                return False
 
 
     def hit_block_under(self, pos):
@@ -207,19 +205,11 @@ class Paddle:
         self.y = 0
         self.x = 0
 
-<<<<<<< HEAD
-=======
 
->>>>>>> Dennis
 class Obstacle:
     def __init__(self, canvas, color):
         self.canvas = canvas
         self.color = color
-<<<<<<< HEAD
-       # self.item = item
-=======
-# self.item = item
->>>>>>> Dennis
 
 
 class Block(Obstacle):
@@ -227,18 +217,7 @@ class Block(Obstacle):
         super().__init__(canvas, color)
         self.canvas = canvas
         self.color = color
-<<<<<<< HEAD
         self.id = canvas.create_rectangle(pos1,pos2,pos3,pos4, fill=color)
-=======
-        self.id = canvas.create_rectangle(pos1, pos2, pos3, pos4, fill=color)
-
-
-#   def add_block(self):
-
->>>>>>> Dennis
-
- #   def add_block(self):
-
 
 class Brick(Obstacle):
     pass
@@ -254,15 +233,7 @@ canvas.pack()
 block = Block
 paddle = Paddle(canvas, color='black')
 ball = Ball(canvas, color='blue', paddle=paddle, block=block)
-<<<<<<< HEAD
-block1 = Block(50, 85 , 100 , 100, "blue")
-block2 = Block(100,85,150,100, "white")
-block3 = Block(150, 85, 200,100, "blue")
-block6 = Block(300, 85, 350, 100, "black")
-block4 = Block(200, 85, 250,100, "white")
-block5 = Block(250, 85, 300,100, "blue")
-block_test = Block(400,100,450,115, "orange")
-=======
+
 block1 = Block(50, 85, 100, 100, "blue")
 block2 = Block(100, 85, 150, 100, "white")
 block3 = Block(150, 85, 200, 100, "blue")
@@ -270,7 +241,6 @@ block6 = Block(300, 85, 350, 100, "black")
 block4 = Block(200, 85, 250, 100, "white")
 block5 = Block(250, 85, 300, 100, "blue")
 block_test = Block(400, 100, 450, 115, "orange")
->>>>>>> Dennis
 
 while True:
     if not ball.hit_bottom:
