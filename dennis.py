@@ -41,32 +41,32 @@ class Ball:
     # if self.hit_block_test(pos):
 #     self.x = -2
 
-def hit_paddle(self, pos):
-    paddle_pos = self.canvas.coords(self.paddle.id)
-    if pos[2] >= paddle_pos[0] and pos[0] <= paddle_pos[2]:
-        if pos[3] >= paddle_pos[1] and pos[3] <= paddle_pos[3]:
-            return True
+    def hit_paddle(self, pos):
+        paddle_pos = self.canvas.coords(self.paddle.id)
+        if pos[2] >= paddle_pos[0] and pos[0] <= paddle_pos[2]:
+            if pos[3] >= paddle_pos[1] and pos[3] <= paddle_pos[3]:
+                return True
             return False
 
-def hit_block_over(self, pos):
-    block_pos = [[300, 85, 350, 100], [150, 85, 200, 100], [100, 85, 150, 100], [50, 85, 100, 100],
-                 [200, 85, 250, 100], [250, 85, 300, 100], [400, 100, 450, 115]]
+    def hit_block_over(self, pos):
+        block_pos = [[300, 85, 350, 100], [150, 85, 200, 100], [100, 85, 150, 100], [50, 85, 100, 100],
+                    [200, 85, 250, 100], [250, 85, 300, 100], [400, 100, 450, 115]]
         
-                 for l in block_pos:
-                     if pos[2] >= l[0] and pos[0] <= l[2]:
-                         if pos[3] >= l[1] and pos[3] <= l[3]:
-                             return True
-                                 return False
+        for l in block_pos:
+            if pos[2] >= l[0] and pos[0] <= l[2]:
+                if pos[3] >= l[1] and pos[3] <= l[3]:
+                    return True
+            return False
 
-def hit_block_under(self, pos):
-    block_pos = [[300, 85, 350, 100], [100, 85, 150, 100], [150, 85, 200, 100], [50, 85, 100, 100],
-                 [200, 85, 250, 100], [250, 85, 300, 100], [400, 100, 450, 115]]
+    def hit_block_under(self, pos):
+        block_pos = [[300, 85, 350, 100], [100, 85, 150, 100], [150, 85, 200, 100], [50, 85, 100, 100],
+                    [200, 85, 250, 100], [250, 85, 300, 100], [400, 100, 450, 115]]
                  # i = 0
                  # while i < len(block_pos):
                  
-                 for l in block_pos:
-                     if pos[1] == l[3] and l[0] <= pos[0] <= l[2]:
-                         return True
+        for l in block_pos:
+            if pos[1] == l[3] and l[0] <= pos[0] <= l[2]:
+                return True
                  #  i += 1
 
 def hit_block(self):
@@ -127,18 +127,18 @@ class Paddle:
         if pos[3] >= 400:
             self.y = 0
 
-def move_left(self, evt):
-    self.x = -3
-    
+    def move_left(self, evt):
+        self.x = -3
+
     def move_right(self, evt):
         self.x = 3
-    
+
     def move_up(self, evt):
         self.y = -3
-    
+
     def move_down(self, evt):
         self.y = 3
-    
+
     def stop_paddle(self, evt):
         self.y = 0
         self.x = 0
