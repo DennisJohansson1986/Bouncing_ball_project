@@ -69,8 +69,8 @@ class Ball:
                 return True
                  #  i += 1
 
-def hit_block(self):
-    pass
+    def hit_block(self):
+        pass
 # if pos[0] >= l[0] and pos[2] <= l[2]:
 #     if pos[1] <= l[3]:
 #         return True
