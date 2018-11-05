@@ -53,12 +53,12 @@ class Ball:
         # block2 = Block(100, 85, 150, 100, "white")
         # block3 = Block(150, 85, 200, 100, "blue")
         # block6 = Block(300, 85, 350, 100, "black")
-        # block4 = Block(200, 85, 250, 100, "white")
-        # block5 = Block(250, 85, 300, 100, "blue")
+        block4 = [200, 85, 250, 100]
+        block5 = [250, 85, 300, 100]
         # block_test = [400, 100, 450, 115]
 
         block1 = [250, 85, 300, 100]
-        block_pos = [[400, 100, 450, 115], block1]
+        block_pos = [[400, 100, 450, 115], block1, block5, block4]
         
         for l in block_pos:
             if pos[2] >= l[0] and pos[0] <= l[2]:
