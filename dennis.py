@@ -12,10 +12,10 @@ class Ball:
         self.canvas.move(self.id, 245, 100)
         self.canvas_height = 400
         self.canvas_width = 500
-        starts = [-3, -1, 1, 3]
+        starts = [1]
         random.shuffle(starts)
-        self.x = starts[0]
-        self.y = -2
+        self.x =  1  #starts[0]
+        self.y = -1
         self.hit_bottom = False
     
     def draw(self):
@@ -24,25 +24,23 @@ class Ball:
         # two coordinates are top left coords and next two are bottom right
         pos = self.canvas.coords(self.id)
         if pos[1] <= 0:
-            self.y = 2
+            self.y = 1
         if pos[3] >= self.canvas_height:
             self.hit_bottom = True
         if pos[0] <= 0:
-            self.x = 2
+            self.x = 1
         if pos[2] >= self.canvas_width:
-            self.x = -2
+            self.x = -1
         if self.hit_paddle(pos):
-            self.y = -2
-#        if self.hit_block(pos) == 1:
-#            self.y = -2
-#        if self.hit_block(pos) == 2:
-#            self.y = 2
-#        if self.hit_block(pos) == 3:
-#            self.y = -2
+            self.y = -1
+        if self.hit_brick(pos) == 4:
+            self.x = 1
+        if self.hit_brick(pos) == 3:
+            self.x = -1
         if self.hit_brick(pos) == 1:
-            self.y = -2
+            self.y = -1
         if self.hit_brick(pos) == 2:
-            self.y = 2
+            self.y = 1
 
 
 
@@ -53,34 +51,6 @@ class Ball:
                 return True
             return False
 
-#    def hit_block(self, pos):
-
-
-        # block13 = [50, 100, 100, 115]
-        # block12 = [100, 100, 150, 115]
-        # block11 = [150, 100, 200, 115]
-        # block10 = [300, 100, 350, 115]
-        # block9 = [200, 100, 250, 115]
-        # block8 = [250, 100, 300, 115]
-#        block1 = [50, 85, 100, 100]
-#        block2 = [100, 85, 150, 100]
-#        block3 = [150, 85, 200, 100]
-#        block6 = [300, 85, 350, 100]
-#        block4 = [200, 85, 250, 100]
-#        block5 = [250, 85, 300, 100]
-#        block7 = [400, 100, 450, 115]
-#        block_pos = [block7, block1, block5, block4, block6, block3,block2]
-#,block8,block9,block10,block11,block12,block13
-
-#        for l in block_pos: #for the over_hit
-#            if pos[2] >= l[0] and pos[0] <= l[2]:
-#                if pos[3] >= l[1] and pos[3] <= l[3]:
-#                    return 1
-#            if pos[2] >= l[0] and pos[0] <= l[2]:
-#                if pos[1] <= l[3] and pos[1] >= l[3]:
-#                    return 2
-
-
     def hit_brick(self,pos):
 
         brick1 = [50, 85, 100, 100, "red"]
@@ -89,28 +59,20 @@ class Ball:
         brick4 = [300, 85, 350, 100]
         brick5 = [200, 85, 250, 100]
         brick6 = [250, 85, 300, 100]
-        brick7 = [50, 116, 100, 130]
-        brick_pos = [brick1,brick2,brick3,brick4,brick5,brick6,brick7]
-        for l in brick_pos: #for the over_hit
-  #          if pos[2] >= l[0] and pos[0] <= l[2]:
-  #              if pos[3] >= l[1] and pos[3] <= l[3]:
-  #                  return 1
-            #if pos[2] >= l[0] and pos[0] <= l[2]:
-            #    if pos[1] <= l[3] and pos[1] >= l[3]:
-            #        return 2
+        brick7 = [50, 130, 100, 145]
+        brick8 = [50,55,100,70]
+        brick9 = [50,40,100,55]
 
-
+        brick_pos = [brick1,brick2,brick3,brick4,brick5,brick6,brick7,brick8,brick9]
+        for l in brick_pos: #iterate through list
             if pos[3] == l[1] and l[0] <= pos[0] <= l[2]: #for a hit from over
-                 return 1
+                return 1
             if pos[1] == l[3] and l[0] <= pos[0] <= l[2]: #for a hit from under
-                 return 2
-
-
-
-
-           # if  l[3] <= pos[0] <= l[3] and pos[0] == l[0]: #from side hit
-           #     return 3
-
+                return 2
+            if pos[2] == l[0] and l[1] <= pos[1] <= l[3]: #for a hit from right side
+                return 3
+            if pos[0] == l[2] and l[1] <= pos[1] <= l[3]: #for a hit from left side
+                return 4
 
 
 class Paddle:
@@ -185,20 +147,17 @@ block = Block
 paddle = Paddle(canvas, color='black')
 ball = Ball(canvas, color='blue', paddle=paddle, block=block)
 
-# block1 = Block(50, 85, 100, 100, "blue")
-# block2 = Block(100, 85, 150, 100, "white")
-# block3 = Block(150, 85, 200, 100, "blue")
-# block6 = Block(300, 85, 350, 100, "black")
-# block4 = Block(200, 85, 250, 100, "white")
-# block5 = Block(250, 85, 300, 100, "blue")
-# block_test = Block(400, 85, 450, 100, "orange")
+brick8 = Block(50, 55, 100, 70, "green")
+brick9 = Block(50, 40, 100, 55, "green")
 brick1 = Block(50, 85, 100, 100, "green")
 brick2 = Block(100, 85, 150, 100, "green")
 brick3 = Block(150, 85, 200, 100, "green")
 brick4 = Block(300, 85, 350, 100,"green")
 brick5 = Block(200, 85, 250, 100, "green")
 brick6 = Block(250, 85, 300, 100, "green")
-brick7 = Block(50, 116, 100, 130, "black")
+brick7 = Block(50, 130, 100, 145, "black")
+
+
 while True:
     if not ball.hit_bottom:
         tk.update()
