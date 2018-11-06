@@ -2,7 +2,6 @@ from tkinter import *
 import random
 import time
 
-
 class Ball:
     def __init__(self, canvas, color, paddle, block):
         self.canvas = canvas
@@ -73,6 +72,7 @@ class Ball:
                 return 3
             if pos[0] == l[2] and l[1] <= pos[1] <= l[3]: #for a hit from left side
                 return 4
+
 
 
 class Paddle:
