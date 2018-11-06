@@ -64,6 +64,7 @@ class Paddle:
         self.id = canvas.create_rectangle(0, 0, 100, 10, fill=color)
         self.canvas.move(self.id, 200, 300)
         self.x = 0
+        self.y = 0
         self.canvas_width = self.canvas.winfo_width()
         self.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         self.canvas.bind_all('<KeyPress-Right>', self.turn_right)
@@ -72,12 +73,16 @@ class Paddle:
         self.canvas.bind_all('<KeyPress-space>', self.stop_paddle)
 
     def draw(self):
-        self.canvas.move(self.id, self.x, 0)
+        self.canvas.move(self.id, self.x, self.y)
         pos = self.canvas.coords(self.id)
         if pos[0] <= 0:
             self.x = 0
-        elif pos[2] >= self.canvas_width:
+        if pos[2] >= self.canvas_width:
             self.x = 0
+        if pos[1] <= 0:
+            self.y = 0
+        if pos[3] >= 400:
+            self.y = 0
 
     def turn_left(self, evt):
             self.x = -3
@@ -93,20 +98,17 @@ class Paddle:
 
 
 class Level:
-    def level(self):
-        brick1 = [50, 85, 100, 100, "red"]
-        brick2 = [100, 85, 150, 100, "yellow"]
-        brick3 = [150, 85, 200, 100, "red"]
-        brick4 = [300, 85, 350, 100, "yellow"]
-        brick5 = [200, 85, 250, 100, "red"]
-        brick6 = [250, 85, 300, 100, "yellow"]
-        brick7 = [50, 130, 100, 145, "red"]
-        brick8 = [50, 55, 100, 70, "yellow"]
-        brick9 = [50, 40, 100, 55, "red"]
-        bricks = [brick1, brick2, brick3, brick4, brick5, brick6, brick7, brick8, brick9]
-        return bricks
+    def level(self,canvas):
+        pass
+#, brick4, brick5, brick6, brick7, brick8, brick9
+class Block():
+    def __init__(self, block,color, canvas):
+        self.canvas = canvas
+        self.color = color
+        self.id = canvas.create_rectangle(block, fill=color)
 
-class Game(Canvas):
+
+class Game():
     def __init__(self):
         tk = Tk()
         tk.title("Bouncing Ball Game")
@@ -115,20 +117,19 @@ class Game(Canvas):
         canvas = Canvas(tk, width=800, height=400, bd=0, highlightthickness=0)
         canvas.pack()
         tk.update()
-
-        bricks = Level.level(self)
-
         paddle = Paddle(canvas, 'blue')
         ball = Ball(canvas, paddle, 'green', bricks)
 
-        while 1:
-            if ball.hit_bottom == False:
+        while True:
+            if not ball.hit_bottom:
                 ball.draw()
                 paddle.draw()
-            tk.update_idletasks()
-            tk.update()
-            time.sleep(0.01)
+                tk.update_idletasks()
+                tk.update()
 
+            else:
+                exit()
+            time.sleep(0.01)
 
 def main():
     Game()

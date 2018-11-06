@@ -52,7 +52,7 @@ class Ball:
 
     def hit_brick(self,pos):
         #blockNr = 1
-        #block_list = []
+        block_list = []
 
     #    for block in Block.add_block():
     #        block_list.append(block + blockNr)
