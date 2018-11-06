@@ -64,6 +64,7 @@ class Paddle:
         self.id = canvas.create_rectangle(0, 0, 100, 10, fill=color)
         self.canvas.move(self.id, 200, 300)
         self.x = 0
+        self.y = 0
         self.canvas_width = self.canvas.winfo_width()
         self.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         self.canvas.bind_all('<KeyPress-Right>', self.turn_right)
@@ -72,7 +73,7 @@ class Paddle:
         self.canvas.bind_all('<KeyPress-space>', self.stop_paddle)
 
     def draw(self):
-        self.canvas.move(self.id, self.x, 0)
+        self.canvas.move(self.id, self.x, self.y)
         pos = self.canvas.coords(self.id)
         if pos[0] <= 0:
             self.x = 0
@@ -80,13 +81,13 @@ class Paddle:
             self.x = 0
 
     def turn_left(self, evt):
-            self.x = -3
+            self.x = -2
     def turn_right(self, evt):
-            self.x = 3
+            self.x = 2
     def move_up(self, evt):
-        self.y = -3
+        self.y = -2
     def move_down(self, evt):
-        self.y = 3
+        self.y = 2
     def stop_paddle(self, evt):
         self.y = 0
         self.x = 0
@@ -136,7 +137,7 @@ class Game():
                 paddle.draw()
             tk.update_idletasks()
             tk.update()
-            time.sleep(0.01)
+            time.sleep(0.005)
 
 
 def main():
