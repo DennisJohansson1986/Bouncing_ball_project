@@ -93,7 +93,7 @@ class Paddle:
 
 
 class Level:
-    def level(self):
+    def level(self, canvas):
         brick1 = [50, 85, 100, 100, "red"]
         brick2 = [100, 85, 150, 100, "yellow"]
         brick3 = [150, 85, 200, 100, "red"]
@@ -104,9 +104,18 @@ class Level:
         brick8 = [50, 55, 100, 70, "yellow"]
         brick9 = [50, 40, 100, 55, "red"]
         bricks = [brick1, brick2, brick3, brick4, brick5, brick6, brick7, brick8, brick9]
+
+        for l in bricks:
+            pos1 = l[0]
+            pos2 = l[1]
+            pos3 = l[2]
+            pos4 = l[3]
+            color = l[4]
+            canvas.create_rectangle(pos1, pos2, pos3, pos4, fill=color)
+
         return bricks
 
-class Game(Canvas):
+class Game():
     def __init__(self):
         tk = Tk()
         tk.title("Bouncing Ball Game")
@@ -116,7 +125,7 @@ class Game(Canvas):
         canvas.pack()
         tk.update()
 
-        bricks = Level.level(self)
+        bricks = Level.level(self, canvas)
 
         paddle = Paddle(canvas, 'blue')
         ball = Ball(canvas, paddle, 'green', bricks)
@@ -135,4 +144,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
