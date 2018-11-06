@@ -1,43 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="dbe51ea1-92e7-418a-a55d-8376c481c565" name="Default Changelist" comment="indenterat de som låg fel">
-      <change beforePath="$PROJECT_DIR$/BS_Niklas.py" beforeDir="false" afterPath="$PROJECT_DIR$/BS_Niklas.py" afterDir="false" />
+    <list default="true" id="983bd136-f77d-442e-a36d-abdc328242a1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Bouncing_ball_project.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dennis.py" beforeDir="false" afterPath="$PROJECT_DIR$/dennis.py" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FUSProjectUsageTrigger">
-    <session id="-1560260113">
-      <usages-collector id="statistics.file.extensions.edit">
+    <session id="-1246858707">
+      <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="py" value="35" />
-          <entry key="txt" value="26" />
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.0" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="7" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="26" />
-          <entry key="Python" value="35" />
+          <entry key="Python" value="1930" />
         </counts>
       </usages-collector>
-      <usages-collector id="statistics.lifecycle.project">
+      <usages-collector id="statistics.vcs.git.usages">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="git.branch.checkout.local" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="1930" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BS_Niklas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="68" selection-start-line="68" selection-end-line="68" />
+            <state relative-caret-position="119">
+              <caret line="16" selection-start-line="16" selection-end-line="21" selection-end-column="20" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -46,13 +68,32 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/dennis.py">
+        <entry file="file://$PROJECT_DIR$/NA.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
+            <state relative-caret-position="34">
+              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <marker date="1541424923257" expanded="true" signature="2517:2522" ph="..." />
+                <marker date="1541511808842" expanded="true" signature="2686:3224" ph="..." />
+                <marker date="1541511808842" expanded="true" signature="2707:2708" ph="..." />
+                <marker date="1541511808842" expanded="true" signature="2707:2712" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dennis.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="134">
+              <caret line="129" selection-start-line="129" selection-end-line="139" selection-end-column="89" />
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+                <marker date="1541511191307" expanded="true" signature="3685:3690" ph="..." />
+                <marker date="1541511191307" expanded="true" signature="3733:3742" ph="..." />
+                <marker date="1541511191307" expanded="true" signature="3733:4253" ph="..." />
+                <marker date="1541511191307" expanded="true" signature="4296:4305" ph="..." />
+                <marker date="1541511191307" expanded="true" signature="4296:4841" ph="..." />
               </folding>
             </state>
           </provider>
@@ -62,40 +103,62 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Niklas" />
+      </map>
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/BS_Niklas.py" />
         <option value="$PROJECT_DIR$/dennis.py" />
+        <option value="$PROJECT_DIR$/NA.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="4" />
-    <option name="y" value="165" />
-    <option name="width" value="1440" />
-    <option name="height" value="803" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="878" />
+    <option name="y" value="115" />
+    <option name="width" value="980" />
+    <option name="height" value="1040" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Buildout</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Bouncing_ball_project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Bouncing_ball_project" type="462c0819:PsiDirectoryNode" />
+              <item name="bouncing_ball" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bouncing_ball" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -109,9 +172,51 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.NA">
+    <configuration name="BS_Niklas" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bouncing_ball" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/BS_Niklas.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="NA" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="bouncing_ball" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NA.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="dennis" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="Bouncing_ball_project" />
+      <module name="bouncing_ball" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -131,8 +236,16 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.dennis" />
+      <item itemvalue="Python.BS_Niklas" />
+      <item itemvalue="Python.NA" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.NA" />
+        <item itemvalue="Python.dennis" />
+        <item itemvalue="Python.BS_Niklas" />
         <item itemvalue="Python.dennis" />
       </list>
     </recent_temporary>
@@ -142,40 +255,32 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5739259c-e46f-4670-832d-7c892c057b53" name="Default Changelist" comment="" />
-      <created>1541144293609</created>
+      <changelist id="983bd136-f77d-442e-a36d-abdc328242a1" name="Default Changelist" comment="" />
+      <created>1541426065970</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1541144293609</updated>
+      <updated>1541426065970</updated>
     </task>
-    <task id="LOCAL-00001" summary="indenterat de som låg fel">
-      <created>1541424656116</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1541424656117</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="165" width="1440" height="803" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17124736" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24983476" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32911393" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3286119" />
       <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Python Console" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -184,18 +289,11 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="indenterat de som låg fel" />
-    <option name="LAST_COMMIT_MESSAGE" value="indenterat de som låg fel" />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/BS_Niklas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="68" selection-start-line="68" selection-end-line="68" />
+        <state relative-caret-position="119">
+          <caret line="16" selection-start-line="16" selection-end-line="21" selection-end-column="20" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
@@ -204,11 +302,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dennis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="71" column="24" lean-forward="true" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
+        <state relative-caret-position="134">
+          <caret line="129" selection-start-line="129" selection-end-line="139" selection-end-column="89" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1541424923257" expanded="true" signature="2517:2522" ph="..." />
+            <marker date="1541511191307" expanded="true" signature="3685:3690" ph="..." />
+            <marker date="1541511191307" expanded="true" signature="3733:3742" ph="..." />
+            <marker date="1541511191307" expanded="true" signature="3733:4253" ph="..." />
+            <marker date="1541511191307" expanded="true" signature="4296:4305" ph="..." />
+            <marker date="1541511191307" expanded="true" signature="4296:4841" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+            <marker date="1541511808842" expanded="true" signature="2686:3224" ph="..." />
+            <marker date="1541511808842" expanded="true" signature="2707:2708" ph="..." />
+            <marker date="1541511808842" expanded="true" signature="2707:2712" ph="..." />
           </folding>
         </state>
       </provider>

@@ -50,20 +50,11 @@ class Ball:
                 return True
             return False
 
-    def hit_brick(self,pos):
+    def hit_brick(self, pos):
 
-        brick1 = [50, 85, 100, 100, "red"]
-        brick2 = [100, 85, 150, 100]
-        brick3 = [150, 85, 200, 100]
-        brick4 = [300, 85, 350, 100]
-        brick5 = [200, 85, 250, 100]
-        brick6 = [250, 85, 300, 100]
-        brick7 = [50, 130, 100, 145]
-        brick8 = [50,55,100,70]
-        brick9 = [50,40,100,55]
 
-        brick_pos = [brick1,brick2,brick3,brick4,brick5,brick6,brick7,brick8,brick9]
-        for l in brick_pos: #iterate through list
+
+        for l in bricks: #iterate through list
             if pos[3] == l[1] and l[0] <= pos[0] <= l[2]: #for a hit from over
                 return 1
             if pos[1] == l[3] and l[0] <= pos[0] <= l[2]: #for a hit from under
@@ -126,43 +117,54 @@ class Obstacle:
 
 
 class Block(Obstacle):
-    def __init__(self, pos1, pos2, pos3, pos4, color):
-        super().__init__(canvas, color)
+    def __init__(self, pos1, pos2, pos3, pos4, color, canvas):
         self.canvas = canvas
         self.color = color
         self.id = canvas.create_rectangle(pos1,pos2,pos3,pos4, fill=color)
 
 class Brick(Obstacle):
-    pass
+    def __init__(self, canvas):
+        pass
+
+class Level:
+    def level(self):
+        brick1 = [50, 85, 100, 100, "red"]
+        brick2 = [100, 85, 150, 100, "yellow"]
+        brick3 = [150, 85, 200, 100, "red"]
+        brick4 = [300, 85, 350, 100, "yellow"]
+        brick5 = [200, 85, 250, 100, "red"]
+        brick6 = [250, 85, 300, 100, "yellow"]
+        brick7 = [50, 130, 100, 145, "red"]
+        brick8 = [50, 55, 100, 70, "yellow"]
+        brick9 = [50, 40, 100, 55, "red"]
+        bricks = [brick1, brick2, brick3, brick4, brick5, brick6, brick7, brick8, brick9]
+        return bricks
 
 
-tk = Tk()
-
-tk.title('Bouncing Ball')
-tk.resizable(0, 0)
-
-canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0)
-canvas.pack()
-block = Block
-paddle = Paddle(canvas, color='black')
-ball = Ball(canvas, color='blue', paddle=paddle, block=block)
-
-brick8 = Block(50, 55, 100, 70, "green")
-brick9 = Block(50, 40, 100, 55, "green")
-brick1 = Block(50, 85, 100, 100, "green")
-brick2 = Block(100, 85, 150, 100, "green")
-brick3 = Block(150, 85, 200, 100, "green")
-brick4 = Block(300, 85, 350, 100,"green")
-brick5 = Block(200, 85, 250, 100, "green")
-brick6 = Block(250, 85, 300, 100, "green")
-brick7 = Block(50, 130, 100, 145, "black")
 
 
-while True:
-    if not ball.hit_bottom:
-        tk.update()
-        ball.draw()
-        paddle.draw()
-    else:
-        exit()
-    time.sleep(0.01)
+class Game(Canvas):
+    def __init__(self):
+        tk = Tk()
+
+        tk.title('Bouncing Ball')
+        tk.resizable(0, 0)
+
+        canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0)
+        canvas.pack()
+        block = Block
+        paddle = Paddle(canvas, color='black')
+        ball = Ball(canvas, color='blue', paddle=paddle, block=block)
+
+
+
+        while True:
+            if not ball.hit_bottom:
+                tk.update()
+                ball.draw()
+                paddle.draw()
+            else:
+                exit()
+            time.sleep(0.01)
+
+Game()
