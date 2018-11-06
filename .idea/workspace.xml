@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="983bd136-f77d-442e-a36d-abdc328242a1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Bouncing_ball_project.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dennis.py" beforeDir="false" afterPath="$PROJECT_DIR$/dennis.py" afterDir="false" />
-    </list>
+    <list default="true" id="983bd136-f77d-442e-a36d-abdc328242a1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,10 +48,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/BS_Niklas.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
+            <state relative-caret-position="-289">
               <caret line="16" selection-start-line="16" selection-end-line="21" selection-end-column="20" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
@@ -67,33 +60,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/NA.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-                <marker date="1541511808842" expanded="true" signature="2686:3224" ph="..." />
-                <marker date="1541511808842" expanded="true" signature="2707:2708" ph="..." />
-                <marker date="1541511808842" expanded="true" signature="2707:2712" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dennis.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="129" selection-start-line="129" selection-end-line="139" selection-end-column="89" />
+            <state relative-caret-position="338">
+              <caret line="141" selection-start-line="141" selection-end-line="141" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <marker date="1541511191307" expanded="true" signature="3685:3690" ph="..." />
-                <marker date="1541511191307" expanded="true" signature="3733:3742" ph="..." />
-                <marker date="1541511191307" expanded="true" signature="3733:4253" ph="..." />
-                <marker date="1541511191307" expanded="true" signature="4296:4305" ph="..." />
-                <marker date="1541511191307" expanded="true" signature="4296:4841" ph="..." />
+                <marker date="1541512549549" expanded="true" signature="4839:4841" ph="..." />
               </folding>
             </state>
           </provider>
@@ -117,7 +91,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="878" />
     <option name="y" value="115" />
     <option name="width" value="980" />
@@ -137,6 +111,7 @@
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -264,7 +239,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24983476" />
@@ -292,7 +267,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/BS_Niklas.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
+        <state relative-caret-position="-289">
           <caret line="16" selection-start-line="16" selection-end-line="21" selection-end-column="20" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
@@ -302,15 +277,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dennis.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="129" selection-start-line="129" selection-end-line="139" selection-end-column="89" />
+        <state relative-caret-position="338">
+          <caret line="141" selection-start-line="141" selection-end-line="141" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <marker date="1541511191307" expanded="true" signature="3685:3690" ph="..." />
-            <marker date="1541511191307" expanded="true" signature="3733:3742" ph="..." />
-            <marker date="1541511191307" expanded="true" signature="3733:4253" ph="..." />
-            <marker date="1541511191307" expanded="true" signature="4296:4305" ph="..." />
-            <marker date="1541511191307" expanded="true" signature="4296:4841" ph="..." />
+            <marker date="1541512549549" expanded="true" signature="4839:4841" ph="..." />
           </folding>
         </state>
       </provider>
@@ -319,12 +290,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <marker date="1541511808842" expanded="true" signature="2686:3224" ph="..." />
-            <marker date="1541511808842" expanded="true" signature="2707:2708" ph="..." />
-            <marker date="1541511808842" expanded="true" signature="2707:2712" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
