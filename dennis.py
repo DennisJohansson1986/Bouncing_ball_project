@@ -51,19 +51,14 @@ class Ball:
             return False
 
     def hit_brick(self,pos):
+        #blockNr = 1
+        #block_list = []
 
-        brick1 = [50, 85, 100, 100, "red"]
-        brick2 = [100, 85, 150, 100]
-        brick3 = [150, 85, 200, 100]
-        brick4 = [300, 85, 350, 100]
-        brick5 = [200, 85, 250, 100]
-        brick6 = [250, 85, 300, 100]
-        brick7 = [50, 130, 100, 145]
-        brick8 = [50,55,100,70]
-        brick9 = [50,40,100,55]
+    #    for block in Block.add_block():
+    #        block_list.append(block + blockNr)
 
-        brick_pos = [brick1,brick2,brick3,brick4,brick5,brick6,brick7,brick8,brick9]
-        for l in brick_pos: #iterate through list
+
+        for l in block_list: #iterate through list
             if pos[3] == l[1] and l[0] <= pos[0] <= l[2]: #for a hit from over
                 return 1
             if pos[1] == l[3] and l[0] <= pos[0] <= l[2]: #for a hit from under
@@ -118,6 +113,20 @@ class Paddle:
         self.y = 0
         self.x = 0
 
+class Level:
+    # protected
+
+
+    def __init__(self, details={}):  # constructor
+        self.__details = details
+        self.block = Block.block
+        __details = self.block
+    def set_details(self, details):  # function
+        self.__details = details
+
+    def get_details(self):
+        return self.__details
+
 
 class Obstacle:
     def __init__(self, canvas, color):
@@ -131,6 +140,10 @@ class Block(Obstacle):
         self.canvas = canvas
         self.color = color
         self.id = canvas.create_rectangle(pos1,pos2,pos3,pos4, fill=color)
+
+    def block(self):
+        block =  canvas.create_rectangle(50,50,100,100, fill="red")
+        return block
 
 class Brick(Obstacle):
     pass
@@ -146,16 +159,6 @@ canvas.pack()
 block = Block
 paddle = Paddle(canvas, color='black')
 ball = Ball(canvas, color='blue', paddle=paddle, block=block)
-
-brick8 = Block(50, 55, 100, 70, "green")
-brick9 = Block(50, 40, 100, 55, "green")
-brick1 = Block(50, 85, 100, 100, "green")
-brick2 = Block(100, 85, 150, 100, "green")
-brick3 = Block(150, 85, 200, 100, "green")
-brick4 = Block(300, 85, 350, 100,"green")
-brick5 = Block(200, 85, 250, 100, "green")
-brick6 = Block(250, 85, 300, 100, "green")
-brick7 = Block(50, 130, 100, 145, "black")
 
 
 while True:
