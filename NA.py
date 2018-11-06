@@ -67,6 +67,9 @@ class Paddle:
         self.canvas_width = self.canvas.winfo_width()
         self.canvas.bind_all('<KeyPress-Left>', self.turn_left)
         self.canvas.bind_all('<KeyPress-Right>', self.turn_right)
+        self.canvas.bind_all('<KeyPress-Up>', self.move_up)
+        self.canvas.bind_all('<KeyPress-Down>', self.move_down)
+        self.canvas.bind_all('<KeyPress-space>', self.stop_paddle)
 
     def draw(self):
         self.canvas.move(self.id, self.x, 0)
@@ -80,6 +83,14 @@ class Paddle:
             self.x = -3
     def turn_right(self, evt):
             self.x = 3
+    def move_up(self, evt):
+        self.y = -3
+    def move_down(self, evt):
+        self.y = 3
+    def stop_paddle(self, evt):
+        self.y = 0
+        self.x = 0
+
 
 class Level:
     def level(self):
