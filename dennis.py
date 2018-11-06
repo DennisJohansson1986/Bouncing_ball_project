@@ -1,0 +1,171 @@
+from tkinter import *
+import random
+import time
+
+class Ball:
+    def __init__(self, canvas, color, paddle, block):
+        self.canvas = canvas
+        self.paddle = paddle
+        self.block = block
+        self.id = canvas.create_oval(10, 10, 25, 25, fill=color)
+        self.canvas.move(self.id, 245, 100)
+        self.canvas_height = 400
+        self.canvas_width = 500
+        starts = [1]
+        random.shuffle(starts)
+        self.x =  1  #starts[0]
+        self.y = -1
+        self.hit_bottom = False
+    
+    def draw(self):
+        self.canvas.move(self.id, self.x, self.y)
+        # returns coordinates of the ball ex.:[255.0, 29.0, 270.0, 44.0] first
+        # two coordinates are top left coords and next two are bottom right
+        pos = self.canvas.coords(self.id)
+        if pos[1] <= 0:
+            self.y = 1
+        if pos[3] >= self.canvas_height:
+            self.hit_bottom = True
+        if pos[0] <= 0:
+            self.x = 1
+        if pos[2] >= self.canvas_width:
+            self.x = -1
+        if self.hit_paddle(pos):
+            self.y = -1
+        if self.hit_brick(pos) == 4:
+            self.x = 1
+        if self.hit_brick(pos) == 3:
+            self.x = -1
+        if self.hit_brick(pos) == 1:
+            self.y = -1
+        if self.hit_brick(pos) == 2:
+            self.y = 1
+
+
+
+    def hit_paddle(self, pos):
+        paddle_pos = self.canvas.coords(self.paddle.id)
+        if pos[2] >= paddle_pos[0] and pos[0] <= paddle_pos[2]:
+            if pos[3] >= paddle_pos[1] and pos[3] <= paddle_pos[3]:
+                return True
+            return False
+
+    def hit_brick(self,pos):
+        #blockNr = 1
+        #block_list = []
+
+    #    for block in Block.add_block():
+    #        block_list.append(block + blockNr)
+
+
+        for l in block_list: #iterate through list
+            if pos[3] == l[1] and l[0] <= pos[0] <= l[2]: #for a hit from over
+                return 1
+            if pos[1] == l[3] and l[0] <= pos[0] <= l[2]: #for a hit from under
+                return 2
+            if pos[2] == l[0] and l[1] <= pos[1] <= l[3]: #for a hit from right side
+                return 3
+            if pos[0] == l[2] and l[1] <= pos[1] <= l[3]: #for a hit from left side
+                return 4
+
+
+
+class Paddle:
+    def __init__(self, canvas, color):
+        self.canvas = canvas
+        self.id = canvas.create_rectangle(0, 0, 100, 10, fill=color)
+        self.canvas.move(self.id, 200, 300)
+        self.x = 0
+        self.y = 0
+        self.canvas_height = 400
+        self.canvas_width = 500
+        self.canvas.bind_all('<KeyPress-Right>', self.move_right)
+        self.canvas.bind_all('<KeyPress-Left>', self.move_left)
+        self.canvas.bind_all('<KeyPress-Up>', self.move_up)
+        self.canvas.bind_all('<KeyPress-Down>', self.move_down)
+        self.canvas.bind_all('<KeyPress-space>', self.stop_paddle)
+
+    def draw(self):
+        self.canvas.move(self.id, self.x, self.y)
+        pos = self.canvas.coords(self.id)
+        if pos[0] <= 0:
+            self.x = 0
+        if pos[2] >= 500:
+            self.x = 0
+        if pos[1] <= 0:
+            self.y = 0
+        if pos[3] >= 400:
+            self.y = 0
+
+    def move_left(self, evt):
+        self.x = -3
+
+    def move_right(self, evt):
+        self.x = 3
+
+    def move_up(self, evt):
+        self.y = -3
+
+    def move_down(self, evt):
+        self.y = 3
+
+    def stop_paddle(self, evt):
+        self.y = 0
+        self.x = 0
+
+class Level:
+    # protected
+
+
+    def __init__(self, details={}):  # constructor
+        self.__details = details
+        self.block = Block.block
+        __details = self.block
+    def set_details(self, details):  # function
+        self.__details = details
+
+    def get_details(self):
+        return self.__details
+
+
+class Obstacle:
+    def __init__(self, canvas, color):
+        self.canvas = canvas
+        self.color = color
+
+
+class Block(Obstacle):
+    def __init__(self, pos1, pos2, pos3, pos4, color):
+        super().__init__(canvas, color)
+        self.canvas = canvas
+        self.color = color
+        self.id = canvas.create_rectangle(pos1,pos2,pos3,pos4, fill=color)
+
+    def block(self):
+        block =  canvas.create_rectangle(50,50,100,100, fill="red")
+        return block
+
+class Brick(Obstacle):
+    pass
+
+
+tk = Tk()
+
+tk.title('Bouncing Ball')
+tk.resizable(0, 0)
+
+canvas = Canvas(tk, width=500, height=400, bd=0, highlightthickness=0)
+canvas.pack()
+block = Block
+paddle = Paddle(canvas, color='black')
+ball = Ball(canvas, color='blue', paddle=paddle, block=block)
+
+
+while True:
+    if not ball.hit_bottom:
+        tk.update()
+        ball.draw()
+        paddle.draw()
+    else:
+        exit()
+    time.sleep(0.01)
