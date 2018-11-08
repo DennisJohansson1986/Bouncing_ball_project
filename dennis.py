@@ -148,7 +148,7 @@ class Game():
         tk.title("Bouncing Ball Game")
         tk.resizable(0, 0)
         tk.wm_attributes("-topmost", 1)
-        canvas = Canvas(tk, width=800, height=400, bd=0, highlightthickness=0)
+        canvas = Canvas(tk, width=600, height=400, bd=0, highlightthickness=0)
         canvas.pack()
         tk.update()
         paddle = Paddle(canvas, 'blue')
