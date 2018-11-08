@@ -120,16 +120,92 @@ class Brick(Obstacle):
 
 class Level:
     def level(self, canvas):
-        brick1 = [50, 85, 100, 100,"red"]
-        brick2 = [100, 85, 150, 100,"blue"]
-        brick3 = [150, 85, 200, 100,"white"]
-        brick4 = [300, 85, 350, 100,"white"]
-        brick5 = [200, 85, 250, 100,"white"]
-        brick6 = [250, 85, 300, 100,"white"]
-        brick7 = [50, 130, 100, 145,"white"]
-        brick8 = [50, 55, 100, 70,"white"]
-        brick9 = [50, 40, 100, 55,"white"]
-        self.bricks = [brick1, brick2, brick3, brick4, brick5, brick6, brick7, brick8, brick9]
+        level = 1
+        row = 0
+        bricks = []
+        try:
+
+            for line in open(str(level) + ".txt", "r"):
+                row = row + 1
+                data = line.split(";")
+
+                if data[0] == ".":
+                    pass
+                else:
+                    brick = (0, 20 + (row * 20), 50, 40 + (row * 20), data[0])
+                    bricks.append(brick)
+
+                if data[1] == ".":
+                    pass
+                else:
+                    brick = (50, 20 + (row * 20), 100, 40 + (row * 20), data[1])
+                    bricks.append(brick)
+
+                if data[2] == ".":
+                    pass
+                else:
+                    brick = (100, 20 + (row * 20), 150, 40 + (row * 20), data[2])
+                    bricks.append(brick)
+
+                if data[3] == ".":
+                    pass
+                else:
+                    brick = (150, 20 + (row * 20), 200, 40 + (row * 20), data[3])
+                    bricks.append(brick)
+
+                if data[4] == ".":
+                    pass
+                else:
+                    brick = (200, 20 + (row * 20), 250, 40 + (row * 20), data[4])
+                    bricks.append(brick)
+
+                if data[5] == ".":
+                    pass
+                else:
+                    brick = (250, 20 + (row * 20), 300, 40 + (row * 20), data[5])
+                    bricks.append(brick)
+
+                if data[6] == ".":
+                    pass
+                else:
+                    brick = (300, 20 + (row * 20), 350, 40 + (row * 20), data[6])
+                    bricks.append(brick)
+
+                if data[7] == ".":
+                    pass
+                else:
+                    brick = (350, 20 + (row * 20), 400, 40 + (row * 20), data[7])
+                    bricks.append(brick)
+
+                if data[8] == ".":
+                    pass
+                else:
+                    brick = (400, 20 + (row * 20), 450, 40 + (row * 20), data[8])
+                    bricks.append(brick)
+
+                if data[9] == ".":
+                    pass
+                else:
+                    brick = (450, 20 + (row * 20), 500, 40 + (row * 20), data[9])
+                    bricks.append(brick)
+
+                if data[10] == ".":
+                    pass
+                else:
+                    brick = (500, 20 + (row * 20), 550, 40 + (row * 20), data[10])
+                    bricks.append(brick)
+
+                if data[11] == ".":
+                    pass
+                else:
+                    brick = (550, 20 + (row * 20), 600, 40 + (row * 20), data[11])
+                    bricks.append(brick)
+
+
+
+        except IOError:
+            pass
+        self.bricks = bricks
 
         for l in self.bricks:
             pos1 = l[0]

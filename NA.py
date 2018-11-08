@@ -10,11 +10,10 @@ class Ball:
         starts = [-1, 1]
         random.shuffle(starts)
         self.x = starts[0]
-        self.y = -1
+        self.y = -2
         self.canvas_heigt = self.canvas.winfo_height()
         self.canvas_width = self.canvas.winfo_width()
         self.hit_bottom = False
-
 
     def hit_paddle(self, pos):
         paddle_pos = self.canvas.coords(self.paddle.id)
@@ -23,18 +22,22 @@ class Ball:
                 return True
         return False
 
+
     def hit_brick(self, pos):
-
-
+        brick = 0
         for l in self.bricks: #iterate through list
+            brick_piece = l
             if pos[3] == l[1] and l[0] <= pos[0] <= l[2]: #for a hit from over
-                return 1
+                brick += 1
             if pos[1] == l[3] and l[0] <= pos[0] <= l[2]: #for a hit from under
-                return 2
+                brick += 2
             if pos[2] == l[0] and l[1] <= pos[1] <= l[3]: #for a hit from right side
-                return 3
+                brick += 3
             if pos[0] == l[2] and l[1] <= pos[1] <= l[3]: #for a hit from left side
-                return 4
+                brick += 4
+   #         if brick > 0:
+
+        return brick
 
     def draw(self):
         self.canvas.move(self.id, self.x, self.y)
@@ -43,20 +46,27 @@ class Ball:
             self.y = 1
         if pos[3] >= self.canvas_heigt:
             self.hit_bottom = True
-        if self.hit_paddle(pos) == True:
+        if self.hit_paddle(pos):
             self.y = -1
+            self.x = random.randrange(-1,1) #skickar iväg bollen åt random håll vid paddelträff
         if pos[0] <= 0:
             self.x = 1
         if pos[2] >= self.canvas_width:
             self.x = -1
         if self.hit_brick(pos) == 4:
             self.x = 1
+            #self.canvas.delete(brick)
         if self.hit_brick(pos) == 3:
             self.x = -1
+            #self.canvas.delete(brick)
         if self.hit_brick(pos) == 1:
             self.y = -1
+            #self.canvas.delete(brick)
         if self.hit_brick(pos) == 2:
             self.y = 1
+            #self.canvas.delete(brick)
+#        if self.hit_brick(pos) > 4:
+#            Canvas.delete(brick_hit)
 
 class Paddle:
     def __init__(self, canvas, color):
@@ -77,36 +87,59 @@ class Paddle:
         pos = self.canvas.coords(self.id)
         if pos[0] <= 0:
             self.x = 0
-        elif pos[2] >= self.canvas_width:
+        if pos[2] >= self.canvas_width:
             self.x = 0
+        if pos[1] <= 0:
+            self.y = 0
+        if pos[3] >= 400:
+            self.y = 0
+
 
     def turn_left(self, evt):
-            self.x = -2
+            self.x = -3
     def turn_right(self, evt):
-            self.x = 2
+            self.x = 3
     def move_up(self, evt):
-        self.y = -2
+        self.y = -3
     def move_down(self, evt):
-        self.y = 2
+        self.y = 3
     def stop_paddle(self, evt):
         self.y = 0
         self.x = 0
 
+class Obstacle:
+    def __init__(self,canvas):
+        self.canvas = canvas
+
+
+class Brick(Obstacle):
+    def __init__(self,canvas):
+        self.canvas = canvas
+        super(Brick, self).__init__(canvas)
+
 
 class Level:
     def level(self, canvas):
-        brick1 = [50, 85, 100, 100, "red"]
-        brick2 = [100, 85, 150, 100, "yellow"]
-        brick3 = [150, 85, 200, 100, "red"]
-        brick4 = [300, 85, 350, 100, "yellow"]
-        brick5 = [200, 85, 250, 100, "red"]
-        brick6 = [250, 85, 300, 100, "yellow"]
-        brick7 = [50, 130, 100, 145, "red"]
-        brick8 = [50, 55, 100, 70, "yellow"]
-        brick9 = [50, 40, 100, 55, "red"]
-        bricks = [brick1, brick2, brick3, brick4, brick5, brick6, brick7, brick8, brick9]
+        level = 1
+        row = 0
+        bricks = []
+        try:
 
-        for l in bricks:
+            for line in open(str(level) + ".txt", "r"):
+                row = row + 1
+                data = line.split(";")
+                for i in range(12):
+                    if data[i] == ".":
+                        pass
+                    else:
+                        brick = (0 + (50 * i), 20 + (row * 20), 50 + (50 * i), 40 + (row * 20), data[i])
+                        bricks.append(brick)
+
+        except IOError:
+            pass
+        self.bricks = bricks
+
+        for l in self.bricks:
             pos1 = l[0]
             pos2 = l[1]
             pos3 = l[2]
@@ -114,7 +147,8 @@ class Level:
             color = l[4]
             canvas.create_rectangle(pos1, pos2, pos3, pos4, fill=color)
 
-        return bricks
+        return self.bricks
+
 
 class Game():
     def __init__(self):
@@ -122,22 +156,21 @@ class Game():
         tk.title("Bouncing Ball Game")
         tk.resizable(0, 0)
         tk.wm_attributes("-topmost", 1)
-        canvas = Canvas(tk, width=800, height=400, bd=0, highlightthickness=0)
+        canvas = Canvas(tk, width=600, height=400, bd=0, highlightthickness=0)
         canvas.pack()
         tk.update()
-
-        bricks = Level.level(self, canvas)
-
         paddle = Paddle(canvas, 'blue')
+        bricks = Level.level(self, canvas)
         ball = Ball(canvas, paddle, 'green', bricks)
-
-        while 1:
-            if ball.hit_bottom == False:
+        while True:
+            if not ball.hit_bottom:
                 ball.draw()
                 paddle.draw()
-            tk.update_idletasks()
-            tk.update()
-            time.sleep(0.005)
+                tk.update_idletasks()
+                tk.update()
+            else:
+                exit()
+            time.sleep(0.01)
 
 
 def main():
