@@ -142,7 +142,7 @@ class Level:
         return self.bricks
 
 
-class Game():
+class Game:
     def __init__(self):
         tk = Tk()
         tk.title("Bouncing Ball Game")
