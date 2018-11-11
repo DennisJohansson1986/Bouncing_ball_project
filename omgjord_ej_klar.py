@@ -39,13 +39,14 @@ class Game:
 
         while 1:
             if not self.ball.hit_bottom:
-                self.ball.move_ball()
-                self.paddle.move_paddle()
-                self.ball_paddle_hit()
-                #if self.ball.throw_ball == True:
+                if self.ball.throw_ball == True:
+                    self.ball.move_ball()
+                    self.paddle.move_paddle()
+                    self.ball_paddle_hit()
+
                 self.master.update_idletasks()
                 self.master.update()
-                time.sleep(0.1)
+                time.sleep(0.01)
             else:
                 exit()
 
