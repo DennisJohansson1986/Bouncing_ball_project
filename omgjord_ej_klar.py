@@ -25,7 +25,7 @@ class Game:
         while 1:
             if not self.ball.hit_bottom:
                 self.ball.move_ball()
-            #   self.paddle.draw_paddle()           nåt som är fel i metoden draw_paddle
+  #              self.paddle.draw_paddle()           #nåt som är fel i metoden draw_paddle
                 self.master.update_idletasks()
                 self.master.update()
             else:
@@ -80,7 +80,7 @@ class Ball(GameObject):
 
         if ball_pos[1] <= 0:
             self.y = 1
-        if ball_pos[3] >= self.canvas_height:
+        if ball_pos[3] >= 400:
             self.hit_bottom = True
         if self.hit_paddle() == True:
             self.y = -1
@@ -124,8 +124,6 @@ class Paddle(GameObject):
         self.width = 80
         self.height = 10
         self.id = self.canvas.create_rectangle(x - self.width / 2,y - self.height / 2,x + self.width / 2,y + self.height / 2 ,fill=color)
-        self.x = 0
-        self.y = 0
         self.x_dir = 0
         self.y_dir = 0
 
@@ -155,11 +153,10 @@ class Paddle(GameObject):
 
     def draw_paddle(self):
         self.canvas.move(self.id, self.x_dir, self.y_dir)
-        width = self.canvas.winfo_width()
         paddle_pos = self.get_position()
         if paddle_pos[0] <= 0:
             self.x_dir = 0
-        if paddle_pos[2] >= width:
+        if paddle_pos[2] >= 610:
             self.x_dir = 0
         if paddle_pos[1] <= 0:
             self.y_dir = 0
