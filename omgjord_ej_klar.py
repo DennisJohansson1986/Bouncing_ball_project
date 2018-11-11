@@ -13,7 +13,7 @@ class Game:
         self.create_objects()
         self.update_()
         self.start()
-        time.sleep(0.1)
+
 
     def create_objects(self):
         self.paddle = Paddle(self.canvas, "red")  # -||-
@@ -42,8 +42,10 @@ class Game:
                 self.ball.move_ball()
                 self.paddle.move_paddle()
                 self.ball_paddle_hit()
+                #if self.ball.throw_ball == True:
                 self.master.update_idletasks()
                 self.master.update()
+                time.sleep(0.1)
             else:
                 exit()
 
@@ -60,6 +62,10 @@ class Game:
 
  #   def delete(self):
  #       self.canvas.delete(self)
+
+
+
+
 
 class Paddle:
     def __init__(self, canvas, color):
@@ -118,7 +124,8 @@ class Ball:
         self.x = start[0]
         self.y = 1
         self.hit_bottom = False
-
+        self.canvas.bind_all('<KeyPress-Return>', self.start_game)
+        self.throw_ball = False
 
     def paddle_hit(self, p_pos):
         paddle_pos = p_pos
@@ -143,6 +150,8 @@ class Ball:
         if ball_pos[2] >= 610:
             self.x = -1
 
+    def start_game(self, evt):
+        self.throw_ball = True
 
     def collision_bricks(self, bricks):
         number_collision = 0
