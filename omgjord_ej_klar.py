@@ -13,10 +13,12 @@ class Game:
         self.create_objects()
         self.update_()
         self.start()
+        time.sleep(0.1)
 
     def create_objects(self):
-        self.paddle = Paddle(self.canvas,self.width / 2, 346, "red")  # -||-
+        self.paddle = Paddle(self.canvas, "red")  # -||-
         self.ball = Ball(self.canvas, "blue")  # ta bort om detta inte funkar
+
 
     def start(self):
         self.master.mainloop()
@@ -32,25 +34,25 @@ class Game:
         self.canvas.pack()
 
 
-    def ball_paddle_hit(self):
-        paddle_pos = self.paddle.paddle_pos
-        if self.ball.paddle_hit(paddle_pos) == True:
-            self.ball.y = -1
-            self.ball.x = random.randrange(-1, 1)  # skickar iväg bollen åt random håll vid paddelträf
-
 
     def update_(self):
+
         while 1:
             if not self.ball.hit_bottom:
                 self.ball.move_ball()
-                self.paddle.move_paddle()           #nåt som är fel i metoden draw_paddle
+                self.paddle.move_paddle()
                 self.ball_paddle_hit()
                 self.master.update_idletasks()
                 self.master.update()
             else:
                 exit()
 
- #   def get_position(self, item):
+    def ball_paddle_hit(self):
+        paddle_pos = self.canvas.coords(self.paddle.id)
+        self.ball.paddle_hit(paddle_pos)
+
+
+#   def get_position(self, item):
  #       return self.canvas.coords(item)
 
 #    def move_(self, x, y):
@@ -60,27 +62,26 @@ class Game:
  #       self.canvas.delete(self)
 
 class Paddle:
-    def __init__(self, canvas,x,y, color):
+    def __init__(self, canvas, color):
         self.canvas = canvas
-        self.width = 80
-        self.height = 10
-        self.id = self.canvas.create_rectangle(x - self.width / 2,y - self.height / 2,x + self.width / 2,y + self.height / 2 ,fill=color)
+        self.id = self.canvas.create_rectangle(0, 0, 100, 10,fill=color)
+        self.canvas.move(self.id, 200,300)
         self.x_dir = 0
         self.y_dir = 0
         self.paddle_pos = self.canvas.coords(self.id)
 
-        self.canvas.bind_all('<KeyPress-Left>', self.turn_left)
-        self.canvas.bind_all('<KeyPress-Right>', self.turn_right)
+        self.canvas.bind_all('<KeyPress-Left>', self.move_left)
+        self.canvas.bind_all('<KeyPress-Right>', self.move_right)
         self.canvas.bind_all('<KeyPress-Up>', self.move_up)
         self.canvas.bind_all('<KeyPress-Down>', self.move_down)
         self.canvas.bind_all('<KeyPress-space>', self.stop_paddle)
 
 
 
-    def turn_left(self, evt):
+    def move_left(self, evt):
         self.x_dir = -3
 
-    def turn_right(self, evt):
+    def move_right(self, evt):
         self.x_dir = 3
 
     def move_up(self, evt):
@@ -95,7 +96,7 @@ class Paddle:
 
     def move_paddle(self):
         self.canvas.move(self.id, self.x_dir, self.y_dir)
-        paddle_pos = self.paddle_pos
+        paddle_pos = self.canvas.coords(self.id)
         if paddle_pos[0] <= 0:
             self.x_dir = 0
         if paddle_pos[2] >= 610:
@@ -112,37 +113,35 @@ class Ball:
     def __init__(self, canvas, color):
         self.canvas = canvas
         self.id = self.canvas.create_oval(10, 10, 25, 25, fill=color)
-        starts = [-1, 1]
-        random.shuffle(starts)
-        self.x = starts[0]
-        self.y = -1
-        self.speed = 10
+        start = [-1, 1]
+        random.shuffle(start)
+        self.x = start[0]
+        self.y = 1
         self.hit_bottom = False
-        self.canvas_width = self.canvas.winfo_width()
-        self.canvas_height = self.canvas.winfo_height()
-        self.ball_pos = self.canvas.coords(self.id)
 
+
+    def paddle_hit(self, p_pos):
+        paddle_pos = p_pos
+        ball_pos = self.canvas.coords(self.id)
+        if ball_pos[2] >= paddle_pos[0] and ball_pos[0] <= paddle_pos[2]:
+            if ball_pos[3] >= paddle_pos[1] and ball_pos[3] <= paddle_pos[3]:
+                self.y = -3
+                self.x = random.randrange(-1,1)
+        return False
 
     def move_ball(self):  # Ball
         #  testa sen när det funkar att ta bort self.item i metoden
-        ball_pos = self.ball_pos
+        self.canvas.move(self.id, self.x, self.y)
+        ball_pos = self.canvas.coords(self.id)
+
         if ball_pos[1] <= 0:
             self.y = 1
         if ball_pos[3] >= 400:
             self.hit_bottom = True
         if ball_pos[0] <= 0:
             self.x = 1
-        if ball_pos[2] <= self.canvas_width:
+        if ball_pos[2] >= 610:
             self.x = -1
-        self.canvas.move(self.id, self.x, self.y)
-
-    def paddle_hit(self, pos):
-        ball_pos = self.canvas.coords(self.id)
-        paddle_pos = pos
-        if ball_pos[2] >= paddle_pos[0] and ball_pos[0] < paddle_pos[2]:
-            if ball_pos[3] >= paddle_pos[1] and ball_pos[3] < paddle_pos[3]:
-                return True
-        return False
 
 
     def collision_bricks(self, bricks):
