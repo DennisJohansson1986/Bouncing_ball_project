@@ -18,7 +18,7 @@ class Game:
     def create_objects(self):
         self.paddle = Paddle(self.canvas, "red")  # -||-
         self.ball = Ball(self.canvas, "blue")  # ta bort om detta inte funkar
-
+        self.bricks = Obstacle(self.canvas) # inte såhär
 
     def start(self):
         self.master.mainloop()
@@ -43,7 +43,6 @@ class Game:
                     self.ball.move_ball()
                     self.paddle.move_paddle()
                     self.ball_paddle_hit()
-
                 self.master.update_idletasks()
                 self.master.update()
                 time.sleep(0.01)
@@ -53,7 +52,6 @@ class Game:
     def ball_paddle_hit(self):
         paddle_pos = self.canvas.coords(self.paddle.id)
         self.ball.paddle_hit(paddle_pos)
-
 
 #   def get_position(self, item):
  #       return self.canvas.coords(item)
@@ -87,16 +85,12 @@ class Paddle:
 
     def move_left(self, evt):
         self.x_dir = -3
-
     def move_right(self, evt):
         self.x_dir = 3
-
     def move_up(self, evt):
         self.y_dir = -3
-
     def move_down(self, evt):
         self.y_dir = 3
-
     def stop_paddle(self, evt):
         self.y_dir = 0
         self.x_dir = 0
@@ -112,9 +106,6 @@ class Paddle:
             self.y_dir = 0
         if paddle_pos[3] >= 400:
             self.y_dir = 0
-
- #   def set_ball(self, ball):
- #       self.ball = ball
 
 class Ball:
     def __init__(self, canvas, color):
@@ -174,13 +165,9 @@ class Ball:
 
 
 class Obstacle:
-    def __init__(self, canvas, bricks):
-        self.id = id
-        super().__init__(canvas, id)
+    def __init__(self, canvas):
         self.canvas = canvas
-        self.bricks = bricks
-        item = self.bricks
-
+        self.id = self.bricks
 
     def create_level(self):
         level = 1
@@ -193,14 +180,32 @@ class Obstacle:
                 data = line.split(";")
                 for i in range(12):
                     if data[i] == ".":
-                        pass
+                        pass #kan man ha continue istället?
                     else:
                         brick = (0 + (50 * i), 20 + (row * 20), 50 + (50 * i), 40 + (row * 20), data[i])
                         self.bricks.append(brick)
-
         except IOError:
             pass
 
+            for bricks in self.bricks:
+                pos1 = bricks[0]
+                pos2 = bricks[1]
+                pos3 = bricks[2]
+                pos4 = bricks[3]
+                color = bricks[4]
+                self.canvas.create_rectangle(pos1, pos2, pos3, pos4, fill=color)
+            return self.bricks
+
+#starts the game
+root = Tk()
+start = Game(root)
+
+"""
+    def add_brick(self, x, y, hits):
+        brick = Brick(self.canvas, x, y, hits)
+        self.items[brick.item] = brick
+"""
+"""
         for l in self.bricks:
             pos1 = l[0]
             pos2 = l[1]
@@ -208,11 +213,4 @@ class Obstacle:
             pos4 = l[3]
             color = l[4]
             self.canvas.create_rectangle(pos1, pos2, pos3, pos4, fill=color)
-
-        return self.bricks
-
-#starts the game
-root = Tk()
-start = Game(root)
-
-
+"""
