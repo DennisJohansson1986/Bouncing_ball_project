@@ -61,7 +61,7 @@ class Ball:
         if pos[2] >= self.canvas_width:
             self.x = -1
         if self.hit_brick(pos) == 4:
-            self.x = 1 
+            self.x = 1
 
         if self.hit_brick(pos) == 3:
             self.x = -1
