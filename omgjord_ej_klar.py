@@ -169,8 +169,7 @@ class Paddle:
             self.y_dir = 0
 
 class Ball:
-    def __init__(self, canvas, color, bricks):
-        self.bricks = bricks
+    def __init__(self, canvas, color):
         self.canvas = canvas
         self.id = self.canvas.create_oval(10, 10, 25, 25, fill=color)
         start = [-1, 1]
