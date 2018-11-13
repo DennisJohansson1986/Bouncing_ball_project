@@ -28,6 +28,8 @@ class Ball:
         self.hit = (0,)
         for l in self.bricks: #iterate through list
             bricka = self.canvas.coords(l)
+            print("boll", pos)
+            print("bricka", bricka)
             if pos[3] == bricka[1] and bricka[0] <= pos[0] <= bricka[2]: #for a hit from over
                 brick += 1
                 self.hit = self.canvas.find_closest(bricka[0], bricka[1], halo=5)
