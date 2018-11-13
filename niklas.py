@@ -49,11 +49,21 @@ class Game:
                 self.ball.y = 0
                 self.create_text(300, 200, "Game Over")
         if self.lives.life == 2:
-            self.canvas.itemconfig(self.lives.id, text="Lives:" + str(self.lives.life), fill="blue", font=('Helvetica',15) )
+            self.canvas.itemconfig(self.lives.id, text="Lives:" + str(self.lives.life), fill="blue", font=('Helvetica',15))
         if self.lives.life == 1:
             self.canvas.itemconfig(self.lives.id ,text="Lives:" + str(self.lives.life), fill="red", font=('Helvetica', 15))
 
     def change_level(self):
+        self.canvas.bind_all('<KeyPress-1>', self.lvl1)
+        self.canvas.bind_all('<KeyPress-2>', self.lvl2)
+        self.canvas.bind_all('<KeyPress-3>', self.lvl3)
+        self.canvas.bind_all('<KeyPress-4>', self.lvl4)
+        self.canvas.bind_all('<KeyPress-5>', self.lvl5)
+        self.canvas.bind_all('<KeyPress-6>', self.lvl6)
+        self.canvas.bind_all('<KeyPress-7>', self.lvl7)
+        self.canvas.bind_all('<KeyPress-8>', self.lvl8)
+        self.canvas.bind_all('<KeyPress-9>', self.lvl9)
+
         if len(self.bricks) == 0:
             self.canvas.delete(self.lvl_text)
             self.lvl = self.lvl + 1
@@ -64,6 +74,88 @@ class Game:
                 pass
             else:
                 self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+
+    def lvl1(self, evt):
+        self.canvas.delete("all")
+        self.bricks = []
+        self.lvl = 1
+        self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+        self.create_objects()
+        self.welcome_text = self.create_text(300,200,"press enter to start")
+        self.game_update()
+        self.start()
+    def lvl2(self, evt):
+        self.canvas.delete("all")
+        self.bricks = []
+        self.lvl = 2
+        self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+        self.create_objects()
+        self.welcome_text = self.create_text(300,200,"press enter to start")
+        self.game_update()
+        self.start()
+    def lvl3(self, evt):
+        self.canvas.delete("all")
+        self.bricks = []
+        self.lvl = 3
+        self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+        self.create_objects()
+        self.welcome_text = self.create_text(300,200,"press enter to start")
+        self.game_update()
+        self.start()
+    def lvl4(self, evt):
+        self.canvas.delete("all")
+        self.bricks = []
+        self.lvl = 4
+        self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+        self.create_objects()
+        self.welcome_text = self.create_text(300,200,"press enter to start")
+        self.game_update()
+        self.start()
+    def lvl5(self, evt):
+        self.canvas.delete("all")
+        self.bricks = []
+        self.lvl = 5
+        self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+        self.create_objects()
+        self.welcome_text = self.create_text(300,200,"press enter to start")
+        self.game_update()
+        self.start()
+    def lvl6(self, evt):
+        self.canvas.delete("all")
+        self.bricks = []
+        self.lvl = 6
+        self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+        self.create_objects()
+        self.welcome_text = self.create_text(300,200,"press enter to start")
+        self.game_update()
+        self.start()
+    def lvl7(self, evt):
+        self.canvas.delete("all")
+        self.bricks = []
+        self.lvl = 7
+        self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+        self.create_objects()
+        self.welcome_text = self.create_text(300,200,"press enter to start")
+        self.game_update()
+        self.start()
+    def lvl8(self, evt):
+        self.canvas.delete("all")
+        self.bricks = []
+        self.lvl = 8
+        self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+        self.create_objects()
+        self.welcome_text = self.create_text(300,200,"press enter to start")
+        self.game_update()
+        self.start()
+    def lvl9(self, evt):
+        self.canvas.delete("all")
+        self.bricks = []
+        self.lvl = 9
+        self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+        self.create_objects()
+        self.welcome_text = self.create_text(300,200,"press enter to start")
+        self.game_update()
+        self.start()
 
 
 
@@ -180,7 +272,8 @@ class Ball:
         if ball_pos[2] >= paddle_pos[0] and ball_pos[0] <= paddle_pos[2]:
             if ball_pos[3] >= paddle_pos[1] and ball_pos[3] <= paddle_pos[3]:
                 self.y = -1
-                self.x = random.randrange(-1, 2)
+                self.x = random.randrange(-1,2)
+
         return False
 
     def get_position(self):
@@ -202,15 +295,13 @@ class Ball:
             self.x = 1
         if ball_pos[2] >= 600:
             self.x = -1
+
         if self.brick_hit == 4:
             self.x = 1
-
         if self.brick_hit == 3:
             self.x = -1
-            #self.canvas.delete(brick)
         if self.brick_hit == 1:
             self.y = -1
-            #self.canvas.delete(brick)
         if self.brick_hit == 2:
             self.y = 1
 
@@ -242,16 +333,33 @@ class Ball:
             del_brick = self.hit[0]
             self.canvas.delete(del_brick)
             while del_brick in self.bricks: self.bricks.remove(del_brick)
-            print(self.bricks)
 
 
-#class Obstacle:
-#    def __init__(self, canvas, lvl):
-#        self.lvl = lvl
-#        self.canvas = canvas
-#        self.level(canvas)
-#        self.id = self.level(self.canvas)
+class Obstacle:
+    def __init__(self, canvas):
+        self.canvas = canvas
+        self.id = self.level()
 
+    def level(self):
+
+        self.bricks = []
+        row = 0
+        try:
+            for line in open(str(self.lvl) + ".txt", "r"):
+                row = row +1
+                data = line.split(";")
+                for i in range(12):
+                    if data[i] == ".":
+                        pass
+                    else:
+                        self.brick_cord = (0 + (50 * i), 20 + (row * 20), 50 + (50 * i), 40 + (row * 20), data[i])
+                        self.bricks.append(self.canvas.create_rectangle(self.brick_cord[0], self.brick_cord[1], self.brick_cord[2], self.brick_cord[3], fill=self.brick_cord[4], width=1, outline="black"))
+        except IOError:
+            if self.lvl == 0:
+                pass
+            else:
+                self.canvas.create_text(300, 200, text="You made it!", font=('Helvetica', 40))
+        return self.bricks
 
 
 #starts the game

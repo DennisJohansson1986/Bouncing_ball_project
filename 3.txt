@@ -1,0 +1,12 @@
+blue;blue;blue;blue;yellow;blue;blue;blue;blue;blue;blue;blue;
+blue;blue;blue;blue;yellow;blue;blue;blue;blue;blue;blue;blue;
+blue;blue;blue;blue;yellow;blue;blue;blue;blue;blue;blue;blue;
+blue;blue;blue;blue;yellow;blue;blue;blue;blue;blue;blue;blue;
+blue;blue;blue;blue;yellow;blue;blue;blue;blue;blue;blue;blue;
+yellow;yellow;yellow;yellow;yellow;yellow;yellow;yellow;yellow;yellow;yellow;yellow;
+yellow;yellow;yellow;yellow;yellow;yellow;yellow;yellow;yellow;yellow;yellow;yellow;
+blue;blue;blue;blue;yellow;blue;blue;blue;blue;blue;blue;blue;
+blue;blue;blue;blue;yellow;blue;blue;blue;blue;blue;blue;blue;
+blue;blue;blue;blue;yellow;blue;blue;blue;blue;blue;blue;blue;
+blue;blue;blue;blue;yellow;blue;blue;blue;blue;blue;blue;blue;
+blue;blue;blue;blue;yellow;blue;blue;blue;blue;blue;blue;blue;
