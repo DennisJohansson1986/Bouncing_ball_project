@@ -18,7 +18,7 @@ class Game:
         self.paddle = Paddle(self.canvas, "red")  # -||-
         self.ball = Ball(self.canvas, "blue")  # ta bort om detta inte funkar
         self.lives = Lives(self.canvas,"blue", 3)
-        self.bricks = Obstacle(self.canvas)
+       # self.bricks = Obstacle(self.canvas)
 
     def start(self):
         self.master.mainloop()
@@ -196,34 +196,34 @@ class Ball:
     #             self.hit = self.canvas.find_closest(brick[0], brick[1], halo=5)
     #     return brick_hit
 
-class Obstacle:
-    def __init__(self, canvas):
-        self.canvas = canvas
-        self.id = self.level(self.canvas)
-
-    def level(self, canvas):
-        self.canvas = canvas
-        self.bricks = []
-        level = 1
-        row = 0
-
-
-        try:
-
-            for line in open(str(level) + ".txt", "r"):
-                row = row +1
-                data = line.split(";")
-                for i in range(12):
-                    if data[i] == ".":
-                        pass
-                    else:
-                        self.brick_cord = (0 + (50 * i), 20 + (row * 20), 50 + (50 * i), 40 + (row * 20), data[i])
-                        self.bricks.append(self.canvas.create_rectangle(self.brick_cord[0], self.brick_cord[1], self.brick_cord[2], self.brick_cord[3], fill=self.brick_cord[4], width=2, outline="#ffffff"))
-
-        except IOError:
-            pass
-
-        return self.bricks
+# class Obstacle:
+#     def __init__(self, canvas):
+#         self.canvas = canvas
+#         self.id = self.level(self.canvas)
+#
+#     def level(self, canvas):
+#         self.canvas = canvas
+#         self.bricks = []
+#         level = 1
+#         row = 0
+#
+#
+#         try:
+#
+#             for line in open(str(level) + ".txt", "r"):
+#                 row = row +1
+#                 data = line.split(";")
+#                 for i in range(12):
+#                     if data[i] == ".":
+#                         pass
+#                     else:
+#                         self.brick_cord = (0 + (50 * i), 20 + (row * 20), 50 + (50 * i), 40 + (row * 20), data[i])
+#                         self.bricks.append(self.canvas.create_rectangle(self.brick_cord[0], self.brick_cord[1], self.brick_cord[2], self.brick_cord[3], fill=self.brick_cord[4], width=2, outline="#ffffff"))
+#
+#         except IOError:
+#             pass
+#
+#         return self.bricks
 
 #starts the game
 root = Tk()
