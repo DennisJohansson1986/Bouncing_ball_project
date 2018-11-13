@@ -80,7 +80,6 @@ class Game:
         self.canvas.bind_all('<KeyPress-8>', self.lvl8)
         self.canvas.bind_all('<KeyPress-9>', self.lvl9)
 
-
         if len(self.bricks) == 0:
             self.canvas.delete(self.lvl_text)
             self.lvl = self.lvl + 1
