@@ -50,7 +50,7 @@ class Game:
         if self.ball.get_position()[3] >= self.canvas.winfo_height():
             self.lives.life -= 1
             self.canvas.itemconfig(self.lives.id, text="Lives:" + str(self.lives.life), fill="blue", font=('Helvetica',15))
-            if self.lives.life == 1:
+            if self.lives.life <= 1:
                 self.canvas.itemconfig(self.lives.id, text="Lives:" + str(self.lives.life), fill="red", font=('Helvetica', 15))
             if self.lives.life == 0:
                 self.ball.y = 0
