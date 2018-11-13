@@ -1,7 +1,4 @@
 from tkinter import *
-from tkinter import ttk
-from collections import defaultdict
-
 import random
 import time
 
@@ -230,4 +227,4 @@ class Obstacle:
 
 #starts the game
 root = Tk()
-start = Game(root)
+Game(root)
