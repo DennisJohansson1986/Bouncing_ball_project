@@ -74,6 +74,7 @@ class Game:
                     self.ball.move_ball()
                     self.ball.update_dir()
                     self.ball_paddle_hit()
+                    self.ball.collision_bricks(self.bricks)
                     self.update_lives()
                     self.change_level()
                 self.master.update_idletasks()
@@ -118,7 +119,7 @@ class Game:
                 pass
             else:
                 self.create_text(300, 200, "You made it!")
-                time.sleep(10)
+
 
 
 class Lives:
@@ -179,6 +180,7 @@ class Ball:
         self.canvas.bind_all('<KeyPress-Return>', self.throw_ball)
         self.throw_ball = False
         self.canvas.move(self.id, 285, 265)
+        self.brick_hit = 0
 
     def paddle_hit(self, p_pos):
         paddle_pos = p_pos
@@ -186,7 +188,7 @@ class Ball:
         if ball_pos[2] >= paddle_pos[0] and ball_pos[0] <= paddle_pos[2]:
             if ball_pos[3] >= paddle_pos[1] and ball_pos[3] <= paddle_pos[3]:
                 self.y = -5
-                self.x = random.randrange(-1,1)
+                #self.x = random.randrange(1,-1)
         return False
 
     def get_position(self):
@@ -208,28 +210,47 @@ class Ball:
             self.x = 2
         if ball_pos[2] >= 600:
             self.x = -2
+        if self.brick_hit == 4:
+            self.x = 1
+
+        if self.brick_hit == 3:
+            self.x = -1
+            #self.canvas.delete(brick)
+        if self.brick_hit == 1:
+            self.y = -1
+            #self.canvas.delete(brick)
+        if self.brick_hit == 2:
+            self.y = 1
 
 
     def throw_ball(self, evt):
         self.throw_ball = True
 
-    def collision_bricks(self):
-        brick_hit = 0
+    def collision_bricks(self, bricks):
+        self.bricks = bricks
+        self.brick_hit = 0
+        self.hit = (0,)
         ball_pos = self.canvas.coords(self.id)
-        for brick in self.bricks:  # iterate through list
+        for l in self.bricks:  # iterate through list
+            brick = self.canvas.coords(l)
             if ball_pos[3] == brick[1] and brick[0] <= ball_pos[0] <= brick[2]:  # for a hit from over
-                brick_hit += 1
+                self.brick_hit += 1
                 self.hit = self.canvas.find_closest(brick[0], brick[1], halo=5)
             if ball_pos[1] == brick[3] and brick[0] <= ball_pos[0] <= brick[2]:  # for a hit from under               funkar inte än
-                brick_hit += 2
+                self.brick_hit += 2
                 self.hit = self.canvas.find_closest(brick[0], brick[1], halo=5)
             if ball_pos[2] == brick[0] and brick[1] <= ball_pos[1] <= brick[3]:  # for a hit from right side
-                brick_hit += 3
+                self.brick_hit += 3
                 self.hit = self.canvas.find_closest(brick[0], brick[1], halo=5)
             if ball_pos[0] == brick[2] and brick[1] <= ball_pos[1] <= brick[3]:  # for a hit from left side
-                brick_hit += 4
+                self.brick_hit += 4
                 self.hit = self.canvas.find_closest(brick[0], brick[1], halo=5)
-        return brick_hit
+            if self.bricks.count(self.hit[0]) > 0:
+                test = self.hit[0]
+                self.canvas.delete(test)
+                while test in self.bricks: self.bricks.remove(test)
+                print(self.bricks)
+
 
 #class Obstacle:
 #    def __init__(self, canvas, lvl):
