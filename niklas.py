@@ -5,7 +5,6 @@ from collections import defaultdict
 import random
 import time
 
-#kanske skapa en default dict med level som key och lista med bricks som value
 
 class Game:
     def __init__(self, master):
@@ -22,7 +21,8 @@ class Game:
         self.paddle = Paddle(self.canvas, "red")  # -||-
         self.ball = Ball(self.canvas, "blue")  # ta bort om detta inte funkar
         self.lives = Lives(self.canvas,"blue", 3)
-        self.level()
+        obstacles = Obstacle(self.canvas, self.lvl)
+        self.bricks = obstacles.bricks
 
 
     def start(self):
@@ -82,7 +82,8 @@ class Game:
         if len(self.bricks) == 0:
             self.canvas.delete(self.lvl_text)
             self.lvl = self.lvl + 1
-            self.level()
+            obstacles = Obstacle(self.canvas, self.lvl)
+            self.bricks = obstacles.bricks
             if self.lvl > 100:
                 exit()
             if self.lvl > 10:
@@ -137,25 +138,6 @@ class Game:
         paddle_pos = self.canvas.coords(self.paddle.id)
         self.ball.paddle_hit(paddle_pos)
 
-
-    def level(self):
-        self.bricks = []
-        row = 0
-        try:
-            for line in open(str(self.lvl) + ".txt", "r"):
-                row = row +1
-                data = line.split(";")
-                for i in range(12):
-                    if data[i] == ".":
-                        pass
-                    else:
-                        self.brick_cord = (0 + (50 * i), 20 + (row * 20), 50 + (50 * i), 40 + (row * 20), data[i])
-                        self.bricks.append(self.canvas.create_rectangle(self.brick_cord[0], self.brick_cord[1], self.brick_cord[2], self.brick_cord[3], fill=self.brick_cord[4], width=2, outline="#ffffff"))
-        except IOError:
-            if self.lvl == 0:
-                pass
-            else:
-                self.canvas.create_text(300, 200, text="You made it!", font = ('Helvetica', 40))
 
 class Lives:
     def __init__(self, canvas, color, life):
@@ -287,7 +269,8 @@ class Ball:
 
 
 class Obstacle:
-    def __init__(self, canvas):
+    def __init__(self, canvas, lvl):
+        self.lvl = lvl
         self.canvas = canvas
         self.id = self.level()
 
@@ -310,7 +293,6 @@ class Obstacle:
                 pass
             else:
                 self.canvas.create_text(300, 200, text="You made it!", font=('Helvetica', 40))
-        return self.bricks
 
 
 #starts the game
