@@ -1,4 +1,10 @@
 from tkinter import *
+<<<<<<< HEAD
+=======
+from tkinter import ttk
+from collections import defaultdict
+
+>>>>>>> be9567ef8226fdbddbfe1f8659baf75294ba0916
 import random
 import time
 
@@ -6,6 +12,10 @@ import time
 
 class Game:
     def __init__(self, master):
+<<<<<<< HEAD
+=======
+        self.lvl = 0
+>>>>>>> be9567ef8226fdbddbfe1f8659baf75294ba0916
         self.master = master
         self.create_window()
         self.create_objects()
@@ -18,7 +28,11 @@ class Game:
         self.paddle = Paddle(self.canvas, "red")  # -||-
         self.ball = Ball(self.canvas, "blue")  # ta bort om detta inte funkar
         self.lives = Lives(self.canvas,"blue", 3)
+<<<<<<< HEAD
        # self.bricks = Obstacle(self.canvas)
+=======
+        self.level()
+>>>>>>> be9567ef8226fdbddbfe1f8659baf75294ba0916
 
     def start(self):
         self.master.mainloop()
@@ -35,6 +49,10 @@ class Game:
         self.master.wm_attributes("-topmost", 1)
         self.canvas = Canvas(self.master, width=self.width, height=self.height, bd=0, highlightthickness=0)
         self.canvas.pack()
+<<<<<<< HEAD
+=======
+        self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+>>>>>>> be9567ef8226fdbddbfe1f8659baf75294ba0916
 
     def update_lives(self):
 
@@ -48,6 +66,18 @@ class Game:
         if self.lives.life == 1:
             self.canvas.itemconfig(self.lives.id ,text="Lives:" + str(self.lives.life), fill="red", font=('Helvetica', 15))
 
+<<<<<<< HEAD
+=======
+    def change_level(self):
+        if len(self.bricks) == 0:
+            self.canvas.delete(self.lvl_text)
+            self.lvl = self.lvl + 1
+            self.level()
+            self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
+
+
+
+>>>>>>> be9567ef8226fdbddbfe1f8659baf75294ba0916
 
     def game_update(self):
 
@@ -61,6 +91,10 @@ class Game:
                     self.ball.update_dir()
                     self.ball_paddle_hit()
                     self.update_lives()
+<<<<<<< HEAD
+=======
+                    self.change_level()
+>>>>>>> be9567ef8226fdbddbfe1f8659baf75294ba0916
                 self.master.update_idletasks()
                 self.master.update()
                 time.sleep(0.01)
@@ -73,6 +107,7 @@ class Game:
         paddle_pos = self.canvas.coords(self.paddle.id)
         self.ball.paddle_hit(paddle_pos)
 
+<<<<<<< HEAD
     # def brick_collision(self):
     #     self.brick_pos = self.canvas.coords(self.bricks.id)
     #     self.brick_bounce = self.ball.collision_bricks(self.brick_pos)
@@ -84,6 +119,39 @@ class Game:
     #         self.ball.y = -1
     #     if self.brick_bounce == 2:
     #         self.ball.y = 1
+=======
+#     def brick_collision(self):
+#         self.brick_pos = self.canvas.coords(bricks.id)
+#        self.brick_bounce = self.ball.collision_bricks(self.brick_pos)
+#         if self.brick_bounce == 4:
+#             self.ball.x = 1
+#         if self.brick_bounce == 3:                                                denna funkar inte än
+#             self.ball.x = -1
+#         if self.brick_bounce == 1:
+#             self.ball.y = -1
+#         if self.brick_bounce == 2:
+#             self.ball.y = 1
+
+    def level(self):
+        self.bricks = []
+        row = 0
+        try:
+            for line in open(str(self.lvl) + ".txt", "r"):
+                row = row +1
+                data = line.split(";")
+                for i in range(12):
+                    if data[i] == ".":
+                        pass
+                    else:
+                        self.brick_cord = (0 + (50 * i), 20 + (row * 20), 50 + (50 * i), 40 + (row * 20), data[i])
+                        self.bricks.append(self.canvas.create_rectangle(self.brick_cord[0], self.brick_cord[1], self.brick_cord[2], self.brick_cord[3], fill=self.brick_cord[4], width=2, outline="#ffffff"))
+        except IOError:
+            if self.lvl == 0:
+                pass
+            else:
+                self.create_text(300, 200, "You made it!")
+                time.sleep(10)
+>>>>>>> be9567ef8226fdbddbfe1f8659baf75294ba0916
 
 
 class Lives:
@@ -178,6 +246,7 @@ class Ball:
     def throw_ball(self, evt):
         self.throw_ball = True
 
+<<<<<<< HEAD
     # def collision_bricks(self, bricks):
     #     brick_hit = 0
     #     ball_pos = self.canvas.coords(self.id)
@@ -228,3 +297,35 @@ class Ball:
 #starts the game
 root = Tk()
 Game(root)
+=======
+    def collision_bricks(self):
+        brick_hit = 0
+        ball_pos = self.canvas.coords(self.id)
+        for brick in self.bricks:  # iterate through list
+            if ball_pos[3] == brick[1] and brick[0] <= ball_pos[0] <= brick[2]:  # for a hit from over
+                brick_hit += 1
+                self.hit = self.canvas.find_closest(brick[0], brick[1], halo=5)
+            if ball_pos[1] == brick[3] and brick[0] <= ball_pos[0] <= brick[2]:  # for a hit from under               funkar inte än
+                brick_hit += 2
+                self.hit = self.canvas.find_closest(brick[0], brick[1], halo=5)
+            if ball_pos[2] == brick[0] and brick[1] <= ball_pos[1] <= brick[3]:  # for a hit from right side
+                brick_hit += 3
+                self.hit = self.canvas.find_closest(brick[0], brick[1], halo=5)
+            if ball_pos[0] == brick[2] and brick[1] <= ball_pos[1] <= brick[3]:  # for a hit from left side
+                brick_hit += 4
+                self.hit = self.canvas.find_closest(brick[0], brick[1], halo=5)
+        return brick_hit
+
+#class Obstacle:
+#    def __init__(self, canvas, lvl):
+#        self.lvl = lvl
+#        self.canvas = canvas
+#        self.level(canvas)
+#        self.id = self.level(self.canvas)
+
+
+
+#starts the game
+root = Tk()
+start = Game(root)
+>>>>>>> be9567ef8226fdbddbfe1f8659baf75294ba0916

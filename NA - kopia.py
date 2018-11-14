@@ -60,6 +60,7 @@ class Ball:
             self.x = 1
         if pos[2] >= self.canvas_width:
             self.x = -1
+<<<<<<< HEAD
 
 
 
@@ -75,10 +76,26 @@ class Ball:
         if self.hit_brick(pos) == 2:
             self.y = 1
 
+=======
+        if self.hit_brick(pos) == 4:
+            self.x = 1
+
+        if self.hit_brick(pos) == 3:
+            self.x = -1
+            #self.canvas.delete(brick)
+        if self.hit_brick(pos) == 1:
+            self.y = -1
+            #self.canvas.delete(brick)
+        if self.hit_brick(pos) == 2:
+            self.y = 1
+            #self.canvas.delete(brick)
+#        if self.hit_brick(pos) > 4:
+>>>>>>> be9567ef8226fdbddbfe1f8659baf75294ba0916
 
         if self.bricks.count(self.hit[0]) > 0:
             test = self.hit[0]
             self.canvas.delete(test)
+<<<<<<< HEAD
             while test in self.bricks:
                 self.bricks.remove(test)
             print(self.bricks)
@@ -87,6 +104,10 @@ class Ball:
             print("-")
             print(self.hit)
 
+=======
+            while test in self.bricks: self.bricks.remove(test)
+            print(self.bricks)
+>>>>>>> be9567ef8226fdbddbfe1f8659baf75294ba0916
 
 
 
