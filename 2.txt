@@ -1,0 +1,10 @@
+red;.;.;.;.;.;red;red;red;.;.;.;
+red;.;.;.;.;.;red;.;red;.;.;.;
+.;.;purple;.;.;.;red;.;red;.;.;red;
+.;.;.;yellow;.;.;red;.;red;.;.;.;
+.;.;black;.;.;.;red;red;red;.;.;.;
+red;.;.;.;.;.;red;red;red;.;.;.;
+red;.;.;.;.;.;red;.;red;.;.;.;
+.;.;purple;.;.;.;red;.;red;.;.;red;
+.;.;.;yellow;.;.;red;.;red;.;.;.;
+.;.;black;.;.;.;red;red;red;.;.;.
