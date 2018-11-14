@@ -199,13 +199,21 @@ class Ball:
         self.canvas.move(self.id, 285, 265)
         self.brick_hit = 0
 
+
     def paddle_hit(self, p_pos):
         paddle_pos = p_pos
         ball_pos = self.canvas.coords(self.id)
         if ball_pos[2] >= paddle_pos[0] and ball_pos[0] <= paddle_pos[2]:
             if ball_pos[3] >= paddle_pos[1] and ball_pos[3] <= paddle_pos[3]:
                 self.y = -1
-                self.x = random.randrange(-1,2)
+                if ball_pos[0] - paddle_pos[0] <= 30:
+                    paddle_x = -1
+                elif ball_pos[0] - paddle_pos[0] >= 50:
+                    paddle_x = 1
+                else:
+                    paddle_x = 0
+                self.x = paddle_x
+
 
         return False
 
@@ -274,8 +282,8 @@ class Obstacle:
         self.lvl = lvl
         self.id = self.level()
 
-    def level(self):
 
+    def level(self):
         self.bricks = []
         row = 0
         try:
