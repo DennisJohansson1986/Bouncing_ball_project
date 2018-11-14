@@ -270,8 +270,8 @@ class Ball:
 
 class Obstacle:
     def __init__(self, canvas, lvl):
-        self.lvl = lvl
         self.canvas = canvas
+        self.lvl = lvl
         self.id = self.level()
 
     def level(self):
