@@ -55,7 +55,7 @@ class Game:
     def next_level(self):
         self.canvas.delete("all")
         self.lvl = self.lvl + 1
-        if self.lvl > 10:
+        if self.lvl > 9:
             img = PhotoImage(file="won.gif")
             self.canvas.create_image(0, 0, anchor=NW, image=img)
             font = ('Helvetica', 40)
@@ -107,7 +107,7 @@ class Game:
         self.lvl = 8
         self.next_level()
     def lvl10(self, evt):
-        self.lvl = 10
+        self.lvl = 9
         self.next_level()
 
     def game_update(self):
