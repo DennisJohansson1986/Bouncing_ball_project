@@ -196,8 +196,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.thething">
-    <configuration name="NA - kopia" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.Game">
+    <configuration name="Game" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="bouncing_ball" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -209,7 +209,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/NA - kopia.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Game.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -387,18 +387,18 @@
       <item itemvalue="Python.dennis" />
       <item itemvalue="Python.NA" />
       <item itemvalue="Python.omgjord_ej_klar" />
-      <item itemvalue="Python.NA - kopia" />
       <item itemvalue="Python.niklas" />
       <item itemvalue="Python.niklas - kopia" />
       <item itemvalue="Python.thething" />
+      <item itemvalue="Python.Game" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Game" />
         <item itemvalue="Python.thething" />
         <item itemvalue="Python.niklas" />
         <item itemvalue="Python.niklas - kopia" />
         <item itemvalue="Python.omgjord_ej_klar" />
-        <item itemvalue="Python.NA - kopia" />
       </list>
     </recent_temporary>
   </component>

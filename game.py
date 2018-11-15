@@ -78,6 +78,7 @@ class Game:
         self.canvas.bind_all('<KeyPress-7>', self.lvl7)
         self.canvas.bind_all('<KeyPress-8>', self.lvl8)
         self.canvas.bind_all('<KeyPress-9>', self.lvl9)
+        self.canvas.bind_all('<KeyPress-w>', self.lvl10)
     def lvl1(self, evt):
         self.lvl = 0
         self.next_level()
@@ -104,6 +105,9 @@ class Game:
         self.next_level()
     def lvl9(self, evt):
         self.lvl = 8
+        self.next_level()
+    def lvl10(self, evt):
+        self.lvl = 10
         self.next_level()
 
     def game_update(self):
