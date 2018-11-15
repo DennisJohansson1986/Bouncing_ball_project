@@ -18,8 +18,8 @@ class Game:
 
 
     def create_objects(self):
-        self.paddle = Paddle(self.canvas, "red")  # -||-
-        self.ball = Ball(self.canvas, "blue")  # ta bort om detta inte funkar
+        self.paddle = Paddle(self.canvas, "red")
+        self.ball = Ball(self.canvas, "blue")
         self.bricks = Obstacle(self.canvas, self.lvl)
 
     def start(self):
@@ -29,7 +29,7 @@ class Game:
         font = ('Helvetica', size)
         return self.canvas.create_text(x_pos, y_pos, text=text, font=font)
 
-    def create_window(self):  # bort för v.1
+    def create_window(self):
         self.width = 600
         self.height = 400
         self.master.title("Bouncing Ball Game")
@@ -66,6 +66,7 @@ class Game:
         self.life_text = self.create_text(30, 10, "Lives:" + str(self.lives), 15)
         self.game_update()
         self.start()
+        
 
     def demo_control(self):
         self.canvas.bind_all('<KeyPress-1>', self.lvl1)
@@ -273,7 +274,7 @@ class Obstacle:
         self.bricks = []
         row = 0
         try:
-            for line in open(str(self.lvl) + ".txt", "r"): #inte range
+            for line in open(str(self.lvl) + ".txt", "r"):
                 row = row +1
                 data = line.split(";")
                 for i in range(12):
