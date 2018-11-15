@@ -32,7 +32,6 @@ class Game:
     def create_window(self):  # bort för v.1
         self.width = 600
         self.height = 400
-        self.master. background='black'
         self.master.title("Bouncing Ball Game")
         self.master.resizable(0, 0)
         self.master.wm_attributes("-topmost", 1)
