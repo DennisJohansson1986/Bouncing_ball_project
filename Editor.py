@@ -3,6 +3,11 @@ import random
 import math
 import copy
 
+
+################################## OBS ##################################
+### Denna editor har vi inte skrivit själva, bara anpassat outputen så den gör banor på ett sätt som vårat program kan läsa in ###
+# Från början kunde man öppna befintliga banor för att fortsätta redigera, men detta tog vi bort så den enbart kan skriva nya banor
+
 # Main class: inherit from tk.Canvas class
 class Editor(tk.Canvas):
     linesNb = 12
@@ -24,7 +29,8 @@ class Editor(tk.Canvas):
     # Screen properties
     screenHeight = 500
     screenWidth = bricksWidth*bricksNbByLine
-
+    
+    # Inte längre, nu går det enbart att göra nya levels
     # This method creates the window and loads the level.
     # If the "X.txt" file (with X the level number) exists, the bricks
     # of the level are placed in the window and white bricks correspond to ".".
