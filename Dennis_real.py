@@ -15,10 +15,9 @@ class Game:
         self.game_update()
         self.start()
 
-
     def create_objects(self):
-        self.paddle = Paddle(self.canvas, "red")  # -||-
-        self.ball = Ball(self.canvas, "blue")  # ta bort om detta inte funkar
+        self.paddle = Paddle(self.canvas, "red")
+        self.ball = Ball(self.canvas, "blue")
         self.bricks = Obstacle(self.canvas, self.lvl)
 
     def start(self):
@@ -28,7 +27,7 @@ class Game:
         font = ('Helvetica', size)
         return self.canvas.create_text(x_pos, y_pos, text=text, font=font)
 
-    def create_window(self):  # bort för v.1
+    def create_window(self):
         self.width = 600
         self.height = 400
         self.master.title("Bouncing Ball Game")
@@ -53,12 +52,15 @@ class Game:
     def next_level(self):
         self.canvas.delete("all")
         self.lvl = self.lvl + 1
+        if self.lvl > 10:
+        #    self.game_done()
         self.create_objects()
         self.welcome_text = self.create_text(300, 200, "Ready for level:" + str(self.lvl), 40)
         self.lvl_text = self.create_text(550, 10, "Level:" + str(self.bricks.lvl), 15)
         self.life_text = self.create_text(30, 10, "Lives:" + str(self.lives), 15)
         self.game_update()
         self.start()
+
 
     def demo_control(self):
         self.canvas.bind_all('<KeyPress-1>', self.lvl1)
@@ -101,35 +103,27 @@ class Game:
     def game_update(self):
 
         while 1:
-            if self.lvl == 11:
-                if not self.lives == 0:
-                    self.paddle.move_paddle()
-                    self.demo_control()
-                    if self.ball.throw_ball:
-                        self.canvas.delete(self.welcome_text)
-                        self.ball.move_ball()
-                        self.ball.update_dir()
-                        self.ball_paddle_hit()
-                        self.update_lives()
-                        self.collision()
-                    self.master.update_idletasks()
-                    self.master.update()
-                    time.sleep(0.01)
-                else:
-                    time.sleep(2)
-                    exit()
+            if not self.lives == 0:
+                self.paddle.move_paddle()
+                self.demo_control()
+                if self.ball.throw_ball:
+                    self.canvas.delete(self.welcome_text)
+                    self.ball.move_ball()
+                    self.ball.update_dir()
+                    self.ball_paddle_hit()
+                    self.update_lives()
+                    self.collision()
+                self.master.update_idletasks()
+                self.master.update()
+                time.sleep(0.01)
+            else:
+                time.sleep(2)
+                exit()
 
     def collision(self):
         self.brick_bounce = self.ball.brick_hit(self.bricks.id)
         if self.brick_bounce == []:
             self.next_level()
-
-    def game_won(self):
-        self.canvas.delete("all")
-        self.won_text =self.create_text(300, 200, "You made it!", 40)
-        time.sleep(2)
-        self.canvas.delete(self.won_text)
-        exit()
 
     def ball_paddle_hit(self):
         paddle_pos = self.canvas.coords(self.paddle.id)
@@ -182,6 +176,7 @@ class Ball:
         random.shuffle(start)
         self.x = start[0]
         self.y = 1
+        self.canvas.bind_all('<KeyPress-Return>', self.throw_ball)
         self.throw_ball = False
         self.canvas.move(self.id, 285, 265)
         self.hit = None
@@ -235,7 +230,6 @@ class Ball:
 
     def brick_hit(self, bricks):
         self.bricks = bricks
-        print(self.bricks)
         ball_pos = self.canvas.coords(self.id)
         for l in self.bricks:  # iterate through list
             brick = self.canvas.coords(l)
@@ -259,14 +253,12 @@ class Obstacle:
         self.canvas = canvas
         self.lvl = lvl
         self.id = self.level()
-       # self.canvas.bind_all('<KeyPress-P>', self.play_again)
-       # self.canvas.bind_all('<KeyPress-Q>', self.quit)
 
     def level(self):
         self.bricks = []
         row = 0
         try:
-            for line in open(str(self.lvl) + ".txt", "r"): #inte range
+            for line in open(str(self.lvl) + ".txt", "r"):
                 row = row +1
                 data = line.split(";")
                 for i in range(12):
@@ -279,28 +271,6 @@ class Obstacle:
         except IOError:
             pass
         return self.bricks
-
-    # def no_more_levels(self):
-    #     self.canvas.delete("all")
-    #     self.won_text =self.canvas.create_text(300, 200, text="You made it!", font=('Helvetica', 40))
-    #     time.sleep(2)
-    #     self.canvas.delete(self.won_text)
-    #
-    #
-    # self.won_text = self.canvas.create_text(300, 200, text="[p]lay again or [q]uit", font=('Helvetica', 40))
-    #     if
-    #     else:
-    #
-    # self.canvas.bind_all('<KeyPress-Return>', self.throw_ball)
-    # def play_again(self):
-    #
-    # def quit(self):
-    #
-# #starts the game
-# root = Tk()
-# start = Game(root)
-
-
 
 
 if __name__ == '__main__':
