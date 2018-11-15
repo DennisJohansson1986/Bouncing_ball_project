@@ -1,0 +1,12 @@
+.;.;.;.;.;.;.;.;.;.;.;.;
+.;.;.;.;.;.;.;.;.;.;.;.;
+.;.;.;.;.;.;.;.;.;.;.;.;
+red;red;.;blue;blue;.;turquoise;turquoise;.;orange;orange;.;
+red;red;.;blue;blue;.;turquoise;turquoise;.;orange;orange;.;
+red;red;purple;blue;blue;yellow;turquoise;turquoise;green;orange;orange;.;
+red;red;.;blue;blue;.;turquoise;turquoise;.;orange;orange;.;
+red;red;.;blue;blue;.;turquoise;turquoise;.;orange;orange;.;
+red;red;.;blue;blue;.;turquoise;turquoise;.;orange;orange;.;
+red;red;.;blue;blue;.;turquoise;turquoise;.;orange;orange;.;
+red;red;purple;blue;blue;yellow;turquoise;turquoise;green;orange;orange;.;
+red;red;.;blue;blue;.;turquoise;turquoise;.;orange;orange;.;
