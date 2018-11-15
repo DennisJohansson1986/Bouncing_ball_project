@@ -10,11 +10,14 @@ class Game:
         self.game_lives()
         self.create_window()
         self.create_objects()
+        self.create_text_objects()
+        self.game_update()
+        self.start()
+
+    def create_text_objects(self):
         self.welcome_text = self.create_text(300,200,"press enter to start", 40)
         self.lvl_text = self.create_text(550, 10, "Level:" + str(self.bricks.lvl),15)
         self.life_text = self.create_text(30, 10, "Lives:" + str(self.lives), 15)
-        self.game_update()
-        self.start()
 
 
     def create_objects(self):
@@ -55,11 +58,7 @@ class Game:
         self.canvas.delete("all")
         self.lvl = self.lvl + 1
         if self.lvl > 9:
-            img = PhotoImage(file="won.gif")
-            self.canvas.create_image(0, 0, anchor=NW, image=img)
-            font = ('Helvetica', 40)
-            self.canvas.create_text(300, 350, text="You Won", font=font, fill="white")
-            self.canvas.mainloop()
+            self.game_won()
         self.create_objects()
         self.welcome_text = self.create_text(300, 200, "Ready for level:" + str(self.lvl), 40)
         self.lvl_text = self.create_text(550, 10, "Level:" + str(self.bricks.lvl), 15)
@@ -134,11 +133,12 @@ class Game:
             self.next_level()
 
     def game_won(self):
-        self.canvas.delete("all")
-        self.won_text =self.create_text(300, 200, "You made it!", 40)
-        time.sleep(2)
-        self.canvas.delete(self.won_text)
-        exit()
+        img = PhotoImage(file="won.gif")
+        self.canvas.create_image(0, 0, anchor=NW, image=img)
+        font = ('Helvetica', 40)
+        self.canvas.create_text(300, 350, text="You Won", font=font, fill="white")
+        self.canvas.mainloop()
+
 
     def ball_paddle_hit(self):
         paddle_pos = self.canvas.coords(self.paddle.id)
