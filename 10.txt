@@ -1,12 +1,1 @@
-orange;orange;orange;orange;orange;orange;orange;orange;orange;orange;orange;orange;
 purple;.;.;.;.;.;.;.;.;.;.;purple;
-turquoise;purple;.;.;.;.;.;.;.;.;purple;turquoise;
-.;turquoise;purple;.;.;.;.;.;.;purple;turquoise;.;
-.;.;turquoise;purple;.;.;.;.;purple;turquoise;.;.;
-.;.;.;turquoise;purple;.;.;purple;turquoise;.;.;.;
-.;.;.;.;red;blue;blue;red;.;.;.;.;
-.;.;.;red;blue;.;.;blue;red;.;.;.;
-.;.;red;blue;.;.;.;.;blue;red;.;.;
-.;red;blue;.;.;.;.;.;.;blue;red;.;
-red;blue;.;.;.;.;.;.;.;.;blue;red;
-blue;.;.;.;.;.;.;.;.;.;.;blue;

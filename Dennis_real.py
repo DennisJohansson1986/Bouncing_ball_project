@@ -15,6 +15,7 @@ class Game:
         self.game_update()
         self.start()
 
+
     def create_objects(self):
         self.paddle = Paddle(self.canvas, "red")  # -||-
         self.ball = Ball(self.canvas, "blue")  # ta bort om detta inte funkar
@@ -100,33 +101,39 @@ class Game:
     def game_update(self):
 
         while 1:
-
-            if not self.lives == 0:
-                self.paddle.move_paddle()
-                self.demo_control()
-                if self.ball.throw_ball:
-                    self.canvas.delete(self.welcome_text)
-                    self.ball.move_ball()
-                    self.ball.update_dir()
-                    self.ball_paddle_hit()
-                    self.update_lives()
-                    self.collision()
-                self.master.update_idletasks()
-                self.master.update()
-                time.sleep(0.01)
-            else:
-                time.sleep(2)
-                exit()
+            if self.lvl == 11:
+                if not self.lives == 0:
+                    self.paddle.move_paddle()
+                    self.demo_control()
+                    if self.ball.throw_ball:
+                        self.canvas.delete(self.welcome_text)
+                        self.ball.move_ball()
+                        self.ball.update_dir()
+                        self.ball_paddle_hit()
+                        self.update_lives()
+                        self.collision()
+                    self.master.update_idletasks()
+                    self.master.update()
+                    time.sleep(0.01)
+                else:
+                    time.sleep(2)
+                    exit()
 
     def collision(self):
         self.brick_bounce = self.ball.brick_hit(self.bricks.id)
         if self.brick_bounce == []:
             self.next_level()
 
+    def game_won(self):
+        self.canvas.delete("all")
+        self.won_text =self.create_text(300, 200, "You made it!", 40)
+        time.sleep(2)
+        self.canvas.delete(self.won_text)
+        exit()
+
     def ball_paddle_hit(self):
         paddle_pos = self.canvas.coords(self.paddle.id)
         self.ball.paddle_hit(paddle_pos)
-
 
 class Paddle:
     def __init__(self, canvas, color):
@@ -175,7 +182,6 @@ class Ball:
         random.shuffle(start)
         self.x = start[0]
         self.y = 1
-        self.canvas.bind_all('<KeyPress-Return>', self.throw_ball)
         self.throw_ball = False
         self.canvas.move(self.id, 285, 265)
         self.hit = None
@@ -186,7 +192,13 @@ class Ball:
         if ball_pos[2] >= paddle_pos[0] and ball_pos[0] <= paddle_pos[2]:
             if ball_pos[3] >= paddle_pos[1] and ball_pos[3] <= paddle_pos[3]:
                 self.y = -1
-                self.x = random.randrange(-1,2)
+                if ball_pos[0] - paddle_pos[0] <= 30:
+                    paddle_x = -1
+                elif ball_pos[0] - paddle_pos[0] >= 50:
+                    paddle_x = 1
+                else:
+                    paddle_x = 0
+                self.x = paddle_x
 
         return False
 
@@ -213,43 +225,32 @@ class Ball:
     def throw_ball(self, evt):
         self.throw_ball = True
 
-    def brick_hit(self,bricks):
+    def delete_brick(self, bricks, brick):
+        self.hit = self.canvas.find_closest(brick[0], brick[1])
+        if bricks.count(self.hit[0]) > 0:
+            del_brick = self.hit[0]
+            self.canvas.delete(del_brick)
+            while del_brick in bricks:
+                self.bricks.remove(del_brick)
+
+    def brick_hit(self, bricks):
         self.bricks = bricks
+        print(self.bricks)
         ball_pos = self.canvas.coords(self.id)
         for l in self.bricks:  # iterate through list
             brick = self.canvas.coords(l)
             if ball_pos[3] == brick[1] and brick[0] <= ball_pos[0] <= brick[2]:
                 self.y = -1
-                self.hit = self.canvas.find_closest(brick[0], brick[1])
-                if self.bricks.count(self.hit[0]) > 0:
-                    test = self.hit[0]
-                    self.canvas.delete(test)
-                    while test in bricks:
-                        self.bricks.remove(test)
+                self.delete_brick(self.bricks, brick)
             if ball_pos[1] == brick[3] and brick[0] <= ball_pos[0] <= brick[2]:
                 self.y = 1
-                self.hit = self.canvas.find_closest(brick[0], brick[1])
-                if self.bricks.count(self.hit[0]) > 0:
-                    test = self.hit[0]
-                    self.canvas.delete(test)
-                    while test in bricks:
-                        self.bricks.remove(test)
+                self.delete_brick(self.bricks, brick)
             if ball_pos[2] == brick[0] and brick[1] <= ball_pos[1] <= brick[3]:
                 self.x = -1
-                self.hit = self.canvas.find_closest(brick[0], brick[1])
-                if self.bricks.count(self.hit[0]) > 0:
-                    test = self.hit[0]
-                    self.canvas.delete(test)
-                    while test in bricks:
-                        self.bricks.remove(test)
+                self.delete_brick(self.bricks, brick)
             if ball_pos[0] == brick[2] and brick[1] <= ball_pos[1] <= brick[3]:
                 self.x = 1
-                self.hit = self.canvas.find_closest(brick[0], brick[1])
-                if self.bricks.count(self.hit[0]) > 0:
-                    test = self.hit[0]
-                    self.canvas.delete(test)
-                    while test in bricks:
-                        self.bricks.remove(test)
+                self.delete_brick(self.bricks, brick)
         return self.bricks
 
 
@@ -258,6 +259,8 @@ class Obstacle:
         self.canvas = canvas
         self.lvl = lvl
         self.id = self.level()
+       # self.canvas.bind_all('<KeyPress-P>', self.play_again)
+       # self.canvas.bind_all('<KeyPress-Q>', self.quit)
 
     def level(self):
         self.bricks = []
@@ -274,20 +277,32 @@ class Obstacle:
                         self.bricks.append(self.canvas.create_rectangle(self.brick_cord[0], self.brick_cord[1], self.brick_cord[2], self.brick_cord[3], fill=self.brick_cord[4], width=1, outline="black"))
 
         except IOError:
-                pass
+            pass
         return self.bricks
 
+    # def no_more_levels(self):
+    #     self.canvas.delete("all")
+    #     self.won_text =self.canvas.create_text(300, 200, text="You made it!", font=('Helvetica', 40))
+    #     time.sleep(2)
+    #     self.canvas.delete(self.won_text)
+    #
+    #
+    # self.won_text = self.canvas.create_text(300, 200, text="[p]lay again or [q]uit", font=('Helvetica', 40))
+    #     if
+    #     else:
+    #
+    # self.canvas.bind_all('<KeyPress-Return>', self.throw_ball)
+    # def play_again(self):
+    #
+    # def quit(self):
+    #
+# #starts the game
+# root = Tk()
+# start = Game(root)
 
 
-#starts the game
-root = Tk()
-start = Game(root)
 
-#
-# def main():
-#     root = Tk()
-#     start = Game(root)
-#
-#
-# if __name__ == '__main__':
-#     main()
+
+if __name__ == '__main__':
+    root = Tk()
+    Game(root)
