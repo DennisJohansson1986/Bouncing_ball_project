@@ -2,6 +2,7 @@ from tkinter import *
 import random
 import time
 import winsound
+import os
 
 class Game:
     def __init__(self, master):
@@ -116,7 +117,7 @@ class Game:
                     print(self.bricks)
                 self.master.update_idletasks()
                 self.master.update()
-                time.sleep(0.01)
+                time.sleep(0.005)
             else:
                 time.sleep(2)
                 exit()
@@ -228,7 +229,7 @@ class Ball:
             del_brick = self.hit[0]
             self.canvas.delete(del_brick)
             while del_brick in bricks:
-                winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
+                os.system("start /min mplay32 /play /close sound.wav")
                 self.bricks.remove(del_brick)
 
     def brick_hit(self, bricks):

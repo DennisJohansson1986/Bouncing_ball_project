@@ -1,5 +1,4 @@
 from tkinter import *
-
 import random
 import time
 
@@ -67,6 +66,16 @@ class Game:
 
 
     def change_level(self):
+        self.canvas.bind_all('<KeyPress-1>', self.lvl1)
+        self.canvas.bind_all('<KeyPress-2>', self.lvl2)
+        self.canvas.bind_all('<KeyPress-3>', self.lvl3)
+        self.canvas.bind_all('<KeyPress-4>', self.lvl4)
+        self.canvas.bind_all('<KeyPress-5>', self.lvl5)
+        self.canvas.bind_all('<KeyPress-6>', self.lvl6)
+        self.canvas.bind_all('<KeyPress-7>', self.lvl7)
+        self.canvas.bind_all('<KeyPress-8>', self.lvl8)
+        self.canvas.bind_all('<KeyPress-9>', self.lvl9)
+
         if len(self.bricks) == 0:
             self.canvas.delete(self.lvl_text)
             self.lvl = self.lvl + 1
@@ -79,43 +88,25 @@ class Game:
             else:
                 self.lvl_text = self.canvas.create_text(550, 10, text="Level:" + str(self.lvl), fill="blue", font=('Helvetica', 15))
 
-    def demo_control(self):
-        self.canvas.bind_all('<KeyPress-1>', self.lvl1)
-        self.canvas.bind_all('<KeyPress-2>', self.lvl2)
-        self.canvas.bind_all('<KeyPress-3>', self.lvl3)
-        self.canvas.bind_all('<KeyPress-4>', self.lvl4)
-        self.canvas.bind_all('<KeyPress-5>', self.lvl5)
-        self.canvas.bind_all('<KeyPress-6>', self.lvl6)
-        self.canvas.bind_all('<KeyPress-7>', self.lvl7)
-        self.canvas.bind_all('<KeyPress-8>', self.lvl8)
-        self.canvas.bind_all('<KeyPress-9>', self.lvl9)
+
     def lvl1(self, evt):
-        self.lvl = 0
-        self.next_level()
+        self.level_swap(1)
     def lvl2(self, evt):
-        self.lvl = 1
-        self.next_level()
+        self.level_swap(2)
     def lvl3(self, evt):
-        self.lvl = 2
-        self.next_level()
+        self.level_swap(3)
     def lvl4(self, evt):
-        self.lvl = 3
-        self.next_level()
+        self.level_swap(4)
     def lvl5(self, evt):
-        self.lvl = 4
-        self.next_level()
+        self.level_swap(5)
     def lvl6(self, evt):
-        self.lvl = 5
-        self.next_level()
+        self.level_swap(6)
     def lvl7(self, evt):
-        self.lvl = 6
-        self.next_level()
+        self.level_swap(7)
     def lvl8(self, evt):
-        self.lvl = 7
-        self.next_level()
+        self.level_swap(8)
     def lvl9(self, evt):
-        self.lvl = 8
-        self.next_level()
+        self.level_swap(9)
 
 
     def game_update(self):
