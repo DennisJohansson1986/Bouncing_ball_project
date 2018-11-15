@@ -20,7 +20,7 @@ class Game:
         self.ball = Ball(self.canvas, "blue")
         self.bricks = Obstacle(self.canvas, self.lvl)
 
-    def self.create_text_objects(self):
+    def create_text_objects(self):
         self.welcome_text = self.create_text(300,200,"press enter to start", 40)
         self.lvl_text = self.create_text(550, 10, "Level:" + str(self.bricks.lvl),15)
         self.life_text = self.create_text(30, 10, "Lives:" + str(self.lives), 15)
