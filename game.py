@@ -1,321 +1,293 @@
-import tkinter as tk
+from tkinter import *
 import random
-import math
-import copy
+import time
 
-# Main class: inherit from tk.Canvas class
-class Game(tk.Canvas):
-    textDisplayed = False
-    linesNb = 20
-    seconds = 0
 
-    # Bar properties
-    barHeight = 20
-    barSpeed = 10
+class Game:
+    def __init__(self, master):
+        self.lvl = 1
+        self.master = master
+        self.game_lives()
+        self.create_window()
+        self.create_objects()
+        self.welcome_text = self.create_text(300,200,"press enter to start", 40)
+        self.lvl_text = self.create_text(550, 10, "Level:" + str(self.bricks.lvl),15)
+        self.life_text = self.create_text(30, 10, "Lives:" + str(self.lives), 15)
+        self.game_update()
+        self.start()
 
-    # Ball property
-    ballSpeed = 7
 
-    # Bricks properties
-    bricks = []
-    bricksWidth = 50
-    bricksHeight = 20
-    bricksNbByLine = 16
-    bricksColors = {
-        "r": "#e74c3c",
-        "g": "#2ecc71",
-        "b": "#3498db",
-        "t": "#1abc9c",
-        "p": "#9b59b6",
-        "y": "#f1c40f",
-        "o": "#e67e22",
-    }
+    def create_objects(self):
+        self.paddle = Paddle(self.canvas, "red")  # -||-
+        self.ball = Ball(self.canvas, "blue")  # ta bort om detta inte funkar
+        self.bricks = Obstacle(self.canvas, self.lvl)
 
-    # Screen properties
-    screenHeight = 500
-    screenWidth = bricksWidth*bricksNbByLine
+    def start(self):
+        self.master.mainloop()
 
-    # This method initializes some attributes: the ball, the bar...
-    def __init__(self, root):
-        tk.Canvas.__init__(self, root, bg="#ffffff", bd=0, highlightthickness=0, relief="ridge", width=self.screenWidth, height=self.screenHeight)
-        self.pack()
-        self.timeContainer = self.create_text(self.screenWidth/2, self.screenHeight*4/5, text="00:00:00", fill="#cccccc", font=("Arial", 30), justify="center")
-        self.shield = self.create_rectangle(0, 0, 0, 0, width=0)
-        self.bar = self.create_rectangle(0, 0, 0, 0, fill="#7f8c8d", width=0)
-        self.ball = self.create_oval(0, 0, 0, 0, width=0)
-        self.ballNext = self.create_oval(0, 0, 0, 0, width=0, state="hidden")
-        self.level(1)
-        self.nextFrame()
+    def create_text(self, x_pos, y_pos, text,size):
+        font = ('Helvetica', size)
+        return self.canvas.create_text(x_pos, y_pos, text=text, font=font)
 
-    # This method, called each time a level is loaded or reloaded,
-    # resets all the elements properties (size, position...).
-    def reset(self):
-        self.barWidth = 100
-        self.ballRadius = 7
-        self.coords(self.shield, (0, self.screenHeight-5, self.screenWidth, self.screenHeight))
-        self.itemconfig(self.shield, fill=self.bricksColors["b"], state="hidden")
-        self.coords(self.bar, ((self.screenWidth - self.barWidth)/2, self.screenHeight - self.barHeight, (self.screenWidth + self.barWidth)/2, self.screenHeight))
-        self.coords(self.ball, (self.screenWidth/2 - self.ballRadius, self.screenHeight - self.barHeight - 2*self.ballRadius, self.screenWidth/2 + self.ballRadius, self.screenHeight - self.barHeight))
-        self.itemconfig(self.ball, fill="#2c3e50")
-        self.coords(self.ballNext, tk._flatten(self.coords(self.ball)))
-        self.effects = {
-            "ballFire": [0, 0],
-            "barTall": [0, 0],
-            "ballTall": [0, 0],
-            "shield": [0, -1],
-        }
-        self.effectsPrev = copy.deepcopy(self.effects)
-        self.ballThrown = False
-        self.keyPressed = [False, False]
-        self.losed = False
-        self.won = False
-        self.ballAngle = math.radians(90)
-        for brick in self.bricks:
-            self.delete(brick)
-            del brick
+    def create_window(self):  # bort för v.1
+        self.width = 600
+        self.height = 400
+        self.master. background='black'
+        self.master.title("Bouncing Ball Game")
+        self.master.resizable(0, 0)
+        self.master.wm_attributes("-topmost", 1)
+        self.canvas = Canvas(self.master, width=self.width, height=self.height, bd=0, highlightthickness=0, bg='white')
+        self.canvas.pack()
 
-    # This method displays the Nth level by reading the corresponding file (N.txt).
-    def level(self, level):
-        self.reset()
-        self.levelNum = level
-        self.bricks = []
-        try:
-            file = open(str(level)+".txt")
-            content = list(file.read().replace("\n", ""))[:(self.bricksNbByLine*self.linesNb)]
-            file.close()
-            for i, el in enumerate(content):
-                col = i%self.bricksNbByLine
-                line = i//self.bricksNbByLine
-                if el != ".":
-                    self.bricks.append(self.create_rectangle(col*self.bricksWidth, line*self.bricksHeight, (col+1)*self.bricksWidth, (line+1)*self.bricksHeight, fill=self.bricksColors[el], width=2, outline="#ffffff"))
-        # If there is not any more level to load, the game is finished and the end of game screen is displayed (with player time).
-        except IOError:
-            self.displayText("GAME ENDED IN\n" + "%02d mn %02d sec %02d" % (int(self.seconds)//60, int(self.seconds)%60, (self.seconds*100)%100), hide = False)
-            return
-        self.displayText("LEVEL\n"+str(self.levelNum))
+    def game_lives(self):
+        self.lives = 3
 
-    # This method, called each 1/60 of seconde, computes again
-    # the properties of all elements (positions, collisions, effects...).
-    def nextFrame(self):
-        if self.ballThrown and not(self.textDisplayed):
-            self.moveBall()
+    def update_lives(self):
+        if self.ball.get_position()[3] >= self.canvas.winfo_height():
+            self.lives -= 1
+            if self.lives <= 2:
+                self.canvas.itemconfig(self.life_text ,text="Lives:" + str(self.lives), fill="red", font=('Helvetica', 15))
+            if self.lives == 0:
+                self.ball.y = 0
+                self.create_text(300, 200, "Game Over", 40)
 
-        if not(self.textDisplayed):
-            self.updateTime()
 
-        self.updateEffects()
+    def next_level(self):
+        self.canvas.delete("all")
+        self.lvl = self.lvl + 1
+        if self.lvl > 10:
+            img = PhotoImage(file="won.gif")
+            self.canvas.create_image(0, 0, anchor=NW, image=img)
+            font = ('Helvetica', 40)
+            self.canvas.create_text(300, 350, text="You Won", font=font, fill="white")
+            self.canvas.mainloop()
+        self.create_objects()
+        self.welcome_text = self.create_text(300, 200, "Ready for level:" + str(self.lvl), 40)
+        self.lvl_text = self.create_text(550, 10, "Level:" + str(self.bricks.lvl), 15)
+        self.life_text = self.create_text(30, 10, "Lives:" + str(self.lives), 15)
+        self.game_update()
+        self.start()
 
-        if self.keyPressed[0]:
-            self.moveBar(-game.barSpeed)
-        elif self.keyPressed[1]:
-            self.moveBar(game.barSpeed)
+    def demo_control(self):
+        self.canvas.bind_all('<KeyPress-1>', self.lvl1)
+        self.canvas.bind_all('<KeyPress-2>', self.lvl2)
+        self.canvas.bind_all('<KeyPress-3>', self.lvl3)
+        self.canvas.bind_all('<KeyPress-4>', self.lvl4)
+        self.canvas.bind_all('<KeyPress-5>', self.lvl5)
+        self.canvas.bind_all('<KeyPress-6>', self.lvl6)
+        self.canvas.bind_all('<KeyPress-7>', self.lvl7)
+        self.canvas.bind_all('<KeyPress-8>', self.lvl8)
+        self.canvas.bind_all('<KeyPress-9>', self.lvl9)
+    def lvl1(self, evt):
+        self.lvl = 0
+        self.next_level()
+    def lvl2(self, evt):
+        self.lvl = 1
+        self.next_level()
+    def lvl3(self, evt):
+        self.lvl = 2
+        self.next_level()
+    def lvl4(self, evt):
+        self.lvl = 3
+        self.next_level()
+    def lvl5(self, evt):
+        self.lvl = 4
+        self.next_level()
+    def lvl6(self, evt):
+        self.lvl = 5
+        self.next_level()
+    def lvl7(self, evt):
+        self.lvl = 6
+        self.next_level()
+    def lvl8(self, evt):
+        self.lvl = 7
+        self.next_level()
+    def lvl9(self, evt):
+        self.lvl = 8
+        self.next_level()
 
-        if not(self.textDisplayed):
-            if self.won:
-                self.displayText("WON!", callback = lambda: self.level(self.levelNum+1))
-            elif self.losed:
-                self.displayText("LOST!", callback = lambda: self.level(self.levelNum))
+    def game_update(self):
+        while 1:
+            if not self.lives == 0:
+                self.paddle.move_paddle()
+                self.demo_control()
+                if self.ball.throw_ball:
+                    self.canvas.delete(self.welcome_text)
+                    self.ball.move_ball()
+                    self.ball.update_dir()
+                    self.ball_paddle_hit()
+                    self.update_lives()
+                    self.collision()
+                self.master.update_idletasks()
+                self.master.update()
+                time.sleep(0.005)
+            else:
+                time.sleep(2)
+                exit()
 
-        self.after(int(1000/60), self.nextFrame)
+    def collision(self):
+        self.brick_bounce = self.ball.brick_hit(self.bricks.id)
+        if self.brick_bounce == []:
+            self.next_level()
 
-    # This method, called when left or right arrows are pressed,
-    # moves "x" pixels horizontally the bar, keeping it in the screen.
-    # If the ball is not thrown yet, it is also moved.
-    def moveBar(self, x):
-        barCoords = self.coords(self.bar)
-        if barCoords[0] < 10 and x < 0:
-            x = -barCoords[0]
-        elif barCoords[2] > self.screenWidth - 10 and x > 0:
-            x = self.screenWidth - barCoords[2]
+    def game_won(self):
+        self.canvas.delete("all")
+        self.won_text =self.create_text(300, 200, "You made it!", 40)
+        time.sleep(2)
+        self.canvas.delete(self.won_text)
+        exit()
 
-        self.move(self.bar, x, 0)
-        if not(self.ballThrown):
-            self.move(self.ball, x, 0)
+    def ball_paddle_hit(self):
+        paddle_pos = self.canvas.coords(self.paddle.id)
+        self.ball.paddle_hit(paddle_pos)
 
-    # This method, called at each frame, moves the ball.
-    # It computes:
-    #     - collisions between ball and bricks/bar/edge of screen
-    #     - next ball position using "ballAngle" and "ballSpeed" attributes
-    #     - effects to the ball and the bar during collision with special bricks
-    def moveBall(self):
-        self.move(self.ballNext, self.ballSpeed*math.cos(self.ballAngle), -self.ballSpeed*math.sin(self.ballAngle))
-        ballNextCoords = self.coords(self.ballNext)
+class Paddle:
+    def __init__(self, canvas, color):
+        self.canvas = canvas
+        self.id = self.canvas.create_rectangle(0, 0, 100, 10,fill=color)
+        self.canvas.move(self.id, 250,350)
+        self.x_dir = 0
+        self.y_dir = 0
 
-        # Collisions computation between ball and bricks
-        i = 0
-        while i < len(self.bricks):
-            collision = self.collision(self.ball, self.bricks[i])
-            collisionNext = self.collision(self.ballNext, self.bricks[i])
-            if not collisionNext:
-                brickColor = self.itemcget(self.bricks[i], "fill")
-                # "barTall" effect (green bricks)
-                if brickColor == self.bricksColors["g"]:
-                    self.effects["barTall"][0] = 1
-                    self.effects["barTall"][1] = 240
-                # "shield" effect (blue bricks)
-                elif brickColor == self.bricksColors["b"]:
-                    self.effects["shield"][0] = 1
-                # "ballFire" effect (purpil bricks)
-                elif brickColor == self.bricksColors["p"]:
-                    self.effects["ballFire"][0] += 1
-                    self.effects["ballFire"][1] = 240
-                # "ballTall" effect (turquoise bricks)
-                elif brickColor == self.bricksColors["t"]:
-                    self.effects["ballTall"][0] = 1
-                    self.effects["ballTall"][1] = 240
+        self.canvas.bind_all('<KeyPress-Left>', self.move_left)
+        self.canvas.bind_all('<KeyPress-Right>', self.move_right)
+        self.canvas.bind_all('<KeyPress-Up>', self.move_up)
+        self.canvas.bind_all('<KeyPress-Down>', self.move_down)
+        self.canvas.bind_all('<KeyPress-space>', self.stop_paddle)
 
-                if not(self.effects["ballFire"][0]):
-                    if collision == 1 or collision == 3:
-                        self.ballAngle = math.radians(180) - self.ballAngle
-                    if collision == 2 or collision == 4:
-                        self.ballAngle = -self.ballAngle
+    def move_left(self, evt):
+        self.x_dir = -2
+    def move_right(self, evt):
+        self.x_dir = 2
+    def move_up(self, evt):
+        self.y_dir = -2
+    def move_down(self, evt):
+        self.y_dir = 2
+    def stop_paddle(self, evt):
+        self.y_dir = 0
+        self.x_dir = 0
 
-                # If the brick is red, it becomes orange.
-                if brickColor == self.bricksColors["r"]:
-                    self.itemconfig(self.bricks[i], fill=self.bricksColors["o"])
-                # If the brick is orange, it becomes yellow.
-                elif brickColor == self.bricksColors["o"]:
-                    self.itemconfig(self.bricks[i], fill=self.bricksColors["y"])
-                # If the brick is yellow (or an other color except red/orange), it is destroyed.
+    def move_paddle(self):
+        self.canvas.move(self.id, self.x_dir, self.y_dir)
+        paddle_pos = self.canvas.coords(self.id)
+        if paddle_pos[0] <= 0:
+            self.x_dir = 0
+        if paddle_pos[2] >= 600:
+            self.x_dir = 0
+        if paddle_pos[1] <= 0:
+            self.y_dir = 0
+        if paddle_pos[3] >= 400:
+            self.y_dir = 0
+
+
+class Ball:
+    def __init__(self, canvas, color):
+        self.canvas = canvas
+        self.id = self.canvas.create_oval(10, 10, 25, 25, fill=color)
+        start = [-1, 1]
+        random.shuffle(start)
+        self.x = start[0]
+        self.y = 1
+        self.canvas.bind_all('<KeyPress-Return>', self.throw_ball)
+        self.throw_ball = False
+        self.canvas.move(self.id, 280, 320)
+        self.hit = None
+
+    def paddle_hit(self, p_pos):
+        paddle_pos = p_pos
+        ball_pos = self.canvas.coords(self.id)
+        if ball_pos[2] >= paddle_pos[0] and ball_pos[0] <= paddle_pos[2]:
+            if ball_pos[3] >= paddle_pos[1] and ball_pos[3] <= paddle_pos[3]:
+                self.y = -1
+                if ball_pos[0] - paddle_pos[0] <= 30:
+                    paddle_x = -1
+                elif ball_pos[0] - paddle_pos[0] >= 50:
+                    paddle_x = 1
                 else:
-                    print(self.bricks[i])
-                    self.delete(self.bricks[i])
-                    del self.bricks[i]
-                    print(self.bricks)
+                    paddle_x = 0
+                self.x = paddle_x
 
-            i += 1
+        return False
 
-        self.won = len(self.bricks) == 0
+    def get_position(self):
+        return self.canvas.coords(self.id)
 
-        # Collisions computation between ball and edge of screen
-        if ballNextCoords[0] < 0 or ballNextCoords[2] > self.screenWidth:
-            self.ballAngle = math.radians(180) - self.ballAngle
-        elif ballNextCoords[1] < 0:
-            self.ballAngle = -self.ballAngle
-        elif not(self.collision(self.ballNext, self.bar)):
-            ballCenter = self.coords(self.ball)[0] + self.ballRadius
-            barCenter = self.coords(self.bar)[0] + self.barWidth/2
-            angleX = ballCenter - barCenter
-            angleOrigin = (-self.ballAngle) % (3.14159*2)
-            angleComputed = math.radians(-70/(self.barWidth/2)*angleX + 90)
-            self.ballAngle = (1 - (abs(angleX)/(self.barWidth/2))**0.25)*angleOrigin + ((abs(angleX)/(self.barWidth/2))**0.25)*angleComputed
-        elif not(self.collision(self.ballNext, self.shield)):
-            if self.effects["shield"][0]:
-                self.ballAngle = -self.ballAngle
-                self.effects["shield"][0] = 0
-            else :
-                self.losed = True
+    def move_ball(self):
+        self.canvas.move(self.id, self.x, self.y)
 
-        self.move(self.ball, self.ballSpeed*math.cos(self.ballAngle), -self.ballSpeed*math.sin(self.ballAngle))
-        self.coords(self.ballNext, tk._flatten(self.coords(self.ball)))
+    def update_dir(self):
+        ball_pos = self.canvas.coords(self.id)
 
-    # This method, called at each frame, manages the remaining time
-    # for each of effects and displays them (bar and ball size...).
-    def updateEffects(self):
-        for key in self.effects.keys():
-            if self.effects[key][1] > 0:
-                self.effects[key][1] -= 1
-            if self.effects[key][1] == 0:
-                self.effects[key][0] = 0
+        if ball_pos[1] <= 0:
+            self.y = 1
+        if ball_pos[3] >= 400:
+            self.y = -20
+            self.x = 0
+        if ball_pos[0] <= 0:
+            self.x = 1
+        if ball_pos[2] >= 600:
+            self.x = -1
 
-        # "ballFire" effect allows the ball to destroy bricks without boucing on them.
-        if self.effects["ballFire"][0]:
-            self.itemconfig(self.ball, fill=self.bricksColors["p"])
-        else:
-            self.itemconfig(self.ball, fill="#2c3e50")
+    def throw_ball(self, evt):
+        self.throw_ball = True
 
-        # "barTall" effect increases the bar size.
-        if self.effects["barTall"][0] != self.effectsPrev["barTall"][0]:
-            diff = self.effects["barTall"][0] - self.effectsPrev["barTall"][0]
-            self.barWidth += diff*60
-            coords = self.coords(self.bar)
-            self.coords(self.bar, tk._flatten((coords[0]-diff*30, coords[1], coords[2]+diff*30, coords[3])))
-        # "ballTall" effect increases the ball size.
-        if self.effects["ballTall"][0] != self.effectsPrev["ballTall"][0]:
-            diff = self.effects["ballTall"][0] - self.effectsPrev["ballTall"][0]
-            self.ballRadius += diff*10
-            coords = self.coords(self.ball)
-            self.coords(self.ball, tk._flatten((coords[0]-diff*10, coords[1]-diff*10, coords[2]+diff*10, coords[3]+diff*10)))
+    def delete_brick(self, bricks, brick):
+        self.hit = self.canvas.find_closest(brick[0], brick[1])
+        if bricks.count(self.hit[0]) > 0:
+            del_brick = self.hit[0]
+            self.canvas.delete(del_brick)
+            while del_brick in bricks:
 
-        # "shield" effect allows the ball to bounce once
-        # at the bottom of the screen (it's like an additional life).
-        if self.effects["shield"][0]:
-            self.itemconfig(self.shield, fill=self.bricksColors["b"], state="normal")
-        else:
-            self.itemconfig(self.shield, state="hidden")
+                self.bricks.remove(del_brick)
 
-        self.effectsPrev = copy.deepcopy(self.effects)
-
-    # This method updates game time (displayed in the background).
-    def updateTime(self):
-        self.seconds += 1/60
-        self.itemconfig(self.timeContainer, text="%02d:%02d:%02d" % (int(self.seconds)//60, int(self.seconds)%60, (self.seconds*100)%100))
-
-    # This method displays some text.
-    def displayText(self, text, hide = True, callback = None):
-        self.textDisplayed = True
-        self.textContainer = self.create_rectangle(0, 0, self.screenWidth, self.screenHeight, fill="#ffffff", width=0, stipple="gray50")
-        self.text = self.create_text(self.screenWidth/2, self.screenHeight/2, text=text, font=("Arial", 25), justify="center")
-        if hide:
-            self.after(3000, self.hideText)
-        if callback != None:
-            self.after(3000, callback)
-
-    # This method deletes the text display.
-    def hideText(self):
-        self.textDisplayed = False
-        self.delete(self.textContainer)
-        self.delete(self.text)
-
-    # This method computes the relative position of 2 objects that is collisions.
-    def collision(self, el1, el2):
-        collisionCounter = 0
-
-        objectCoords = self.coords(el1)
-        obstacleCoords = self.coords(el2)
-        print(objectCoords)
-        print(obstacleCoords)
-
-        if objectCoords[2] < obstacleCoords[0] + 5:
-            collisionCounter = 1
-        if objectCoords[3] < obstacleCoords[1] + 5:
-            collisionCounter = 2
-        if objectCoords[0] > obstacleCoords[2] - 5:
-            collisionCounter = 3
-        if objectCoords[1] > obstacleCoords[3] - 5:
-            collisionCounter = 4
-
-        return collisionCounter
+    def brick_hit(self, bricks):
+        self.bricks = bricks
+        ball_pos = self.canvas.coords(self.id)
+        for l in self.bricks:
+            brick = self.canvas.coords(l)
+            if ball_pos[3] == brick[1] and brick[0] <= ball_pos[0] <= brick[2]:
+                self.y = -1
+                self.delete_brick(self.bricks, brick)
+            if ball_pos[1] == brick[3] and brick[0] <= ball_pos[0] <= brick[2]:
+                self.y = 1
+                self.delete_brick(self.bricks, brick)
+            if ball_pos[2] == brick[0] and brick[1] <= ball_pos[1] <= brick[3]:
+                self.x = -1
+                self.delete_brick(self.bricks, brick)
+            if ball_pos[0] == brick[2] and brick[1] <= ball_pos[1] <= brick[3]:
+                self.x = 1
+                self.delete_brick(self.bricks, brick)
+        return self.bricks
 
 
-# This function is called on key down.
-def eventsPress(event):
-    global game, hasEvent
+class Obstacle:
+    def __init__(self, canvas, lvl):
+        self.canvas = canvas
+        self.lvl = lvl
+        self.id = self.level()
 
-    if event.keysym == "Left":
-        game.keyPressed[0] = 1
-    elif event.keysym == "Right":
-        game.keyPressed[1] = 1
-    elif event.keysym == "space" and not(game.textDisplayed):
-        game.ballThrown = True
+    def level(self):
+        self.bricks = []
+        row = 0
+        try:
+            for line in open(str(self.lvl) + ".txt", "r"): #inte range
+                row = row +1
+                data = line.split(";")
+                for i in range(12):
+                    if data[i] == ".":
+                        pass
+                    else:
+                        self.brick_cord = (0 + (50 * i), 20 + (row * 20), 50 + (50 * i), 40 + (row * 20), data[i])
+                        self.bricks.append(self.canvas.create_rectangle(self.brick_cord[0], self.brick_cord[1], self.brick_cord[2], self.brick_cord[3], fill=self.brick_cord[4], width=1, outline="black",))
 
-# This function is called on key up.
-def eventsRelease(event):
-    global game, hasEvent
-
-    if event.keysym == "Left":
-        game.keyPressed[0] = 0
-    elif event.keysym == "Right":
-        game.keyPressed[1] = 0
+        except IOError:
+            pass
+        return self.bricks
 
 
-# Initialization of the window
-root = tk.Tk()
-root.title("Brick Breaker")
-root.resizable(0,0)
-root.bind("<Key>", eventsPress)
-root.bind("<KeyRelease>", eventsRelease)
+def main():
+    root = Tk()
+    Game(root)
 
-# Starting up of the game
-game = Game(root)
-root.mainloop()
+if __name__ == '__main__':
+    main()
